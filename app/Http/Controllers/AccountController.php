@@ -11,7 +11,7 @@ class AccountController extends Controller
 	public function show()
 	{
 		$user = Auth::user();
-		return view('conta', compact('user'));
+		return view('painel.conta', compact('user'));
 	}
 
 	public function update(Request $request)
@@ -34,5 +34,15 @@ class AccountController extends Controller
 		$user->save();
 
 		return redirect()->route('account.show')->with('status', 'Conta atualizada com sucesso.');
+	}
+
+	public function destroy()
+	{
+		$user = Auth::user();
+		Auth::logout();
+
+		$user->delete();
+
+		return redirect()->route('home')->with('status', 'Conta excluída com sucesso.');
 	}
 }

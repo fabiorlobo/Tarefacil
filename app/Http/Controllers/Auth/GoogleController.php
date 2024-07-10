@@ -42,7 +42,7 @@ class GoogleController extends Controller
 				return redirect()->intended('painel');
 			}
 		} catch (\Exception $e) {
-			return redirect('/entrar');
+			return redirect()->route('painel.entrar');
 		}
 	}
 }

@@ -13,8 +13,8 @@
 			<ul>
 				<li><a href="/">Home</a></li>
 				<li><a href="/sobre">Sobre</a></li>
-				<li><a href="/entrar">Entrar</a></li>
-				<li><a href="/cadastro">Cadastre-se</a></li>
+				<li><a href="/painel/entrar">Entrar</a></li>
+				<li><a href="/painel/cadastro">Cadastre-se</a></li>
 			</ul>
 		</nav>
 	</header>

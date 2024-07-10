@@ -8,11 +8,21 @@
 		@csrf
 		<div>
 			<label for="email">Email:</label>
-			<input type="email" id="email" name="email" required>
+			<input type="email" id="email" name="email" required value="{{ old('email') }}">
+			@error('email')
+				<div class="error">{{ $message }}</div>
+			@enderror
 		</div>
 		<div>
 			<label for="password">Senha:</label>
 			<input type="password" id="password" name="password" required>
+			@error('password')
+				<div class="error">{{ $message }}</div>
+			@enderror
+		</div>
+		<div>
+			<input type="checkbox" id="remember" name="remember">
+			<label for="remember">Lembrar-me</label>
 		</div>
 		<div>
 			<button type="submit">Entrar</button>
