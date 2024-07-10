@@ -7,6 +7,15 @@
 	@if (session('status'))
 		<div>{{ session('status') }}</div>
 	@endif
+	@if ($errors->any())
+		<div class="errors">
+			<ul>
+				@foreach ($errors->all() as $error)
+					<li>{{ $error }}</li>
+				@endforeach
+			</ul>
+		</div>
+	@endif
 	<form method="POST" action="{{ route('account.update') }}">
 		@csrf
 		<div>
@@ -41,7 +50,8 @@
 			<button type="submit">Atualizar Conta</button>
 		</div>
 	</form>
-	<form method="POST" action="{{ route('account.destroy') }}">
+	<form method="POST" action="{{ route('account.destroy') }}"
+		onsubmit="return confirm('Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita.');">
 		@csrf
 		<button type="submit">Excluir Conta</button>
 	</form>

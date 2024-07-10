@@ -12,7 +12,7 @@ use App\Http\Controllers\AccountController;
 // Rota para a home
 Route::get('/', function () {
 	return view('home');
-});
+})->name('home');;
 
 // Rotas para posts (páginas dinâmicas)
 Route::get('/posts', [PostController::class, 'index']);
