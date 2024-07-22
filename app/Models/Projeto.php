@@ -9,5 +9,18 @@ class Projeto extends Model
 {
 	use HasFactory;
 
-	protected $fillable = ['nome', 'descricao'];
+	protected $fillable = [
+		'nome',
+		'descricao',
+	];
+
+	public function listas()
+	{
+		return $this->hasMany(Lista::class);
+	}
+
+	public function notas()
+	{
+		return $this->hasMany(Nota::class);
+	}
 }

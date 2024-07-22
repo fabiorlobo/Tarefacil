@@ -23,9 +23,13 @@
 		</div>
 		<div>
 			<label for="projeto_id">Projeto:</label>
-			<select id="projeto_id" name="projeto_id">
-				<option value="">Selecione um projeto</option>
-				<!-- Loop through projects here -->
+			<select id="projeto_id" name="projeto_id" class="select2" style="width: 100%;">
+				<option value="">Selecione ou crie um projeto</option>
+				@foreach ($projetos as $projeto)
+					<option value="{{ $projeto->id }}" {{ old('projeto_id', $lista->projeto_id) == $projeto->id ? 'selected' : '' }}>
+						{{ $projeto->nome }}
+					</option>
+				@endforeach
 			</select>
 			@error('projeto_id')
 				<div class="error">{{ $message }}</div>

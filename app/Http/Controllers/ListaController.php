@@ -26,13 +26,18 @@ class ListaController extends Controller
 		$validator = Validator::make($request->all(), [
 			'nome' => 'required|string|min:3|max:255',
 			'descricao' => 'nullable|string|max:1000',
-			'projeto_id' => 'nullable|exists:projetos,id',
+			'projeto_id' => 'nullable|string',
 			'tempo_previsto_horas' => 'nullable|integer|min:0|max:23',
 			'tempo_previsto_minutos' => 'nullable|integer|min:0|max:59',
 		]);
 
 		if ($validator->fails()) {
 			return redirect()->back()->withErrors($validator)->withInput();
+		}
+
+		if ($request->filled('projeto_id') && !is_numeric($request->projeto_id)) {
+			$projeto = Projeto::create(['nome' => $request->projeto_id]);
+			$request->merge(['projeto_id' => $projeto->id]);
 		}
 
 		Lista::create($request->all());
@@ -54,13 +59,18 @@ class ListaController extends Controller
 		$validator = Validator::make($request->all(), [
 			'nome' => 'required|string|min:3|max:255',
 			'descricao' => 'nullable|string|max:1000',
-			'projeto_id' => 'nullable|exists:projetos,id',
+			'projeto_id' => 'nullable|string',
 			'tempo_previsto_horas' => 'nullable|integer|min:0|max:23',
 			'tempo_previsto_minutos' => 'nullable|integer|min:0|max:59',
 		]);
 
 		if ($validator->fails()) {
 			return redirect()->back()->withErrors($validator)->withInput();
+		}
+
+		if ($request->filled('projeto_id') && !is_numeric($request->projeto_id)) {
+			$projeto = Projeto::create(['nome' => $request->projeto_id]);
+			$request->merge(['projeto_id' => $projeto->id]);
 		}
 
 		$lista->update($request->all());

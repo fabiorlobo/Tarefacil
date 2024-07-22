@@ -1,4 +1,4 @@
-(()=>{"use strict";var __webpack_modules__={"./resources/assets/styles/app.scss":
-/*!******************************************!*\
-  !*** ./resources/assets/styles/app.scss ***!
-  \******************************************/(__unused_webpack_module,__webpack_exports__,__webpack_require__)=>{eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack:///./resources/assets/styles/app.scss?")}},__webpack_require__={r:e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})}},__webpack_exports__={};__webpack_modules__["./resources/assets/styles/app.scss"](0,__webpack_exports__,__webpack_require__)})();
+(()=>{var __webpack_modules__={"./resources/assets/scripts/app.js":
+/*!*****************************************!*\
+  !*** ./resources/assets/scripts/app.js ***!
+  \*****************************************/()=>{eval('// Select2\n\n$(document).ready(function () {\n  $(\'.select2\').select2({\n    tags: true,\n    createTag: function createTag(params) {\n      return {\n        id: params.term,\n        text: params.term,\n        newOption: true\n      };\n    },\n    templateResult: function templateResult(data) {\n      var $result = $("<span></span>");\n      $result.text(data.text);\n      if (data.newOption) {\n        $result.append(" <em>(novo)</em>");\n      }\n      return $result;\n    }\n  });\n});\n\n//# sourceURL=webpack:///./resources/assets/scripts/app.js?')}},__webpack_exports__={};__webpack_modules__["./resources/assets/scripts/app.js"]()})();

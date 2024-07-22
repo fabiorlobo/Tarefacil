@@ -19,7 +19,7 @@ class TarefaController extends Controller
 	{
 		$validator = Validator::make($request->all(), [
 			'descricao' => 'required|string|min:3|max:1000',
-			'lista_id' => 'required|exists:listas,id',
+			'lista_id' => 'required|string',
 			'tempo_previsto_horas' => 'nullable|integer|min:0|max:23',
 			'tempo_previsto_minutos' => 'nullable|integer|min:0|max:59',
 			'tempo_utilizado_horas' => 'nullable|integer|min:0|max:23',
@@ -28,6 +28,11 @@ class TarefaController extends Controller
 
 		if ($validator->fails()) {
 			return redirect()->back()->withErrors($validator)->withInput();
+		}
+
+		if ($request->filled('lista_id') && !is_numeric($request->lista_id)) {
+			$lista = Lista::create(['nome' => $request->lista_id]);
+			$request->merge(['lista_id' => $lista->id]);
 		}
 
 		Tarefa::create($request->all());
@@ -48,7 +53,7 @@ class TarefaController extends Controller
 
 		$validator = Validator::make($request->all(), [
 			'descricao' => 'required|string|min:3|max:1000',
-			'lista_id' => 'required|exists:listas,id',
+			'lista_id' => 'required|string',
 			'tempo_previsto_horas' => 'nullable|integer|min:0|max:23',
 			'tempo_previsto_minutos' => 'nullable|integer|min:0|max:59',
 			'tempo_utilizado_horas' => 'nullable|integer|min:0|max:23',
@@ -57,6 +62,11 @@ class TarefaController extends Controller
 
 		if ($validator->fails()) {
 			return redirect()->back()->withErrors($validator)->withInput();
+		}
+
+		if ($request->filled('lista_id') && !is_numeric($request->lista_id)) {
+			$lista = Lista::create(['nome' => $request->lista_id]);
+			$request->merge(['lista_id' => $lista->id]);
 		}
 
 		$tarefa->update($request->all());

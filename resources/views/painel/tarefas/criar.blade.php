@@ -19,10 +19,11 @@
 		<div>
 			<label for="lista_id">Lista:</label>
 			<select id="lista_id" name="lista_id" class="select2">
-				<option value="">Selecione uma lista</option>
+				<option value="">Selecione ou crie uma lista</option>
 				@foreach ($listas as $lista)
 					<option value="{{ $lista->id }}" {{ isset($listaId) && $listaId == $lista->id ? 'selected' : '' }}>
-						{{ $lista->nome }}</option>
+						{{ $lista->nome }}
+					</option>
 				@endforeach
 			</select>
 			@error('lista_id')
@@ -65,11 +66,3 @@
 		</div>
 	</form>
 @endsection
-
-@push('scripts')
-	<script>
-		$(document).ready(function () {
-			$('.select2').select2();
-		});
-	</script>
-@endpush

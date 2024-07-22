@@ -22,7 +22,8 @@ const styleEntries = glob.sync('./resources/assets/styles/**/*.scss').reduce((ac
 module.exports = {
 	entry: {
 		...scriptEntries,
-		...styleEntries
+		...styleEntries,
+		app: path.resolve(__dirname, './resources/assets/scripts/app.js')
 	},
 	output: {
 		filename: 'scripts/[name].js',

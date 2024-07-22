@@ -10,6 +10,8 @@
 		<div class="alert alert-success">{{ session('status') }}</div>
 	@endif
 
+	<a href="{{ route('listas.edit', $lista->id) }}">Editar Lista</a>
+
 	<h3>Tarefas</h3>
 	<a href="{{ route('tarefas.create', $lista->id) }}">Criar Nova Tarefa</a>
 	<ul>

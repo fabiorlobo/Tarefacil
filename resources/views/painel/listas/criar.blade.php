@@ -25,10 +25,12 @@
 		</div>
 		<div>
 			<label for="projeto_id">Projeto:</label>
-			<select id="projeto_id" name="projeto_id" class="select2">
-				<option value="">Selecione um projeto</option>
+			<select id="projeto_id" name="projeto_id" class="select2" style="width: 100%;">
+				<option value="">Selecione ou crie um projeto</option>
 				@foreach ($projetos as $projeto)
-					<option value="{{ $projeto->id }}" {{ old('projeto_id') == $projeto->id ? 'selected' : '' }}>{{ $projeto->nome }}</option>
+					<option value="{{ $projeto->id }}" {{ old('projeto_id') == $projeto->id ? 'selected' : '' }}>
+						{{ $projeto->nome }}
+					</option>
 				@endforeach
 			</select>
 			@error('projeto_id')
@@ -44,7 +46,8 @@
 		</div>
 		<div>
 			<label for="tempo_previsto_minutos">Tempo Previsto (Minutos):</label>
-			<input type="text" id="tempo_previsto_minutos" name="tempo_previsto_minutos" value="{{ old('tempo_previsto_minutos') }}">
+			<input type="text" id="tempo_previsto_minutos" name="tempo_previsto_minutos"
+				value="{{ old('tempo_previsto_minutos') }}">
 			@error('tempo_previsto_minutos')
 				<div class="error">{{ $message }}</div>
 			@enderror
@@ -54,11 +57,3 @@
 		</div>
 	</form>
 @endsection
-
-@push('scripts')
-	<script>
-		$(document).ready(function() {
-			$('.select2').select2();
-		});
-	</script>
-@endpush

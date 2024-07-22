@@ -10,15 +10,13 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ListaController;
 use App\Http\Controllers\TarefaController;
+use App\Http\Controllers\ProjetoController;
 
 // Rota para a home
 Route::get('/', function () {
 	return view('home');
-})->name('home');;
-
-// Rotas para posts (páginas dinâmicas)
-Route::get('/posts', [PostController::class, 'index']);
-Route::get('/posts/{id}', [PostController::class, 'show']);
+})->name('home');
+;
 
 // Login
 Route::get('entrar', [LoginController::class, 'showLoginForm'])->name('login');
@@ -59,6 +57,17 @@ Route::delete('/painel/tarefas/{id}', [TarefaController::class, 'destroy'])->nam
 Route::post('/painel/tarefas/{id}/start', [TarefaController::class, 'startTracker'])->name('tarefas.start');
 Route::post('/painel/tarefas/{id}/stop', [TarefaController::class, 'stopTracker'])->name('tarefas.stop');
 Route::get('/painel/tarefas/{id}/check-status', [TarefaController::class, 'checkStatus']);
+
+// Projetos
+Route::prefix('painel')->middleware('auth')->group(function () {
+	Route::get('projetos/criar', [ProjetoController::class, 'create'])->name('projetos.create');
+	Route::post('projetos', [ProjetoController::class, 'store'])->name('projetos.store');
+	Route::get('projetos/{id}', [ProjetoController::class, 'show'])->name('projetos.show');
+	Route::get('projetos/{id}/editar', [ProjetoController::class, 'edit'])->name('projetos.edit');
+	Route::put('projetos/{id}', [ProjetoController::class, 'update'])->name('projetos.update');
+	Route::delete('projetos/{id}', [ProjetoController::class, 'destroy'])->name('projetos.destroy');
+	Route::get('projetos', [ProjetoController::class, 'index'])->name('projetos.index');
+});
 
 // Rotas dinâmicas para páginas estáticas
 Route::get('/{page}', [PageController::class, 'show'])->where('page', '^(?!posts).*');

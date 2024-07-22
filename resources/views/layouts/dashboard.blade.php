@@ -13,7 +13,8 @@
 		<h1>Painel</h1>
 		<nav>
 			<ul>
-				<li><a href="/painel">Projetos</a></li>
+				<li><a href="/painel">Painel</a></li>
+				<li><a href="/painel/projetos">Projetos</a></li>
 				<li><a href="/painel/listas">Listas</a></li>
 				<li><a href="/painel/tarefas/criar">Criar tarefa</a></li>
 				<li><a href="/painel/conta">Minha conta</a></li>
