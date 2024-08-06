@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
@@ -48,7 +47,7 @@ Route::put('/painel/listas/{id}', [ListaController::class, 'update'])->name('lis
 Route::delete('/painel/listas/{id}', [ListaController::class, 'destroy'])->name('listas.destroy');
 
 // Tarefas
-Route::get('/painel/tarefas/criar', [TarefaController::class, 'create'])->name('tarefas.create');
+//Route::get('/painel/tarefas/criar', [TarefaController::class, 'create'])->name('tarefas.create');
 Route::get('/painel/tarefas/criar/{lista?}', [TarefaController::class, 'create'])->name('tarefas.create');
 Route::post('/painel/tarefas', [TarefaController::class, 'store'])->name('tarefas.store');
 Route::get('/painel/tarefas/{id}/editar', [TarefaController::class, 'edit'])->name('tarefas.edit');

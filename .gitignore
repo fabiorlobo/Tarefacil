@@ -5,6 +5,7 @@ public/build
 public/hot
 public/storage
 storage/*.key
+bootstrap/cache
 .env
 .env.backup
 .env.production
@@ -28,3 +29,4 @@ Homestead.yaml
 
 # Miscellaneous
 auth.json
+.DS_Store
