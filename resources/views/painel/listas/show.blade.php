@@ -28,17 +28,12 @@
 					@endif
 					]
 				@endif
-				@if ($tarefa->tempo_utilizado_horas || $tarefa->tempo_utilizado_minutos)
-					[Tempo utilizado:
-					@if ($tarefa->tempo_utilizado_horas)
-						{{ $tarefa->tempo_utilizado_horas }}h
-					@endif
-					@if ($tarefa->tempo_utilizado_minutos)
-						{{ $tarefa->tempo_utilizado_minutos }}m
-					@endif
-					<span id="timer-{{ $tarefa->id }}"></span>
-					]
-				@endif
+
+				[Tempo utilizado:
+				<span id="timer-{{ $tarefa->id }}">{{ $tarefa->tempo_utilizado_horas ?? 0 }}h
+					{{ $tarefa->tempo_utilizado_minutos ?? 0 }}m</span>
+				]
+
 				<br>
 				<button id="start-btn-{{ $tarefa->id }}" onclick="startTracker({{ $tarefa->id }})" {{ $tarefa->in_progress ? 'style=display:none' : '' }}>Iniciar</button>
 				<button id="stop-btn-{{ $tarefa->id }}" onclick="stopTracker({{ $tarefa->id }})" {{ !$tarefa->in_progress ? 'style=display:none' : '' }}>Parar</button>

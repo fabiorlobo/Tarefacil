@@ -18,6 +18,8 @@ function startTracker(tarefaId) {
 								const startTime = new Date(data.start_time + 'Z').getTime();
 								timers[tarefaId] = {
 										startTime: startTime,
+										tempoUtilizadoHoras: parseInt(data.tempo_utilizado_horas) || 0,
+										tempoUtilizadoMinutos: parseInt(data.tempo_utilizado_minutos) || 0,
 										interval: setInterval(() => updateTimer(tarefaId), 1000)
 								};
 
@@ -77,30 +79,32 @@ function updateTimer(tarefaId) {
 
 		const elapsedTime = Math.floor((Date.now() - timer.startTime) / 1000);
 
-		const hours = Math.floor(elapsedTime / 3600);
-		const minutes = Math.floor((elapsedTime % 3600) / 60);
-		const seconds = elapsedTime % 60;
+		const additionalHours = Math.floor(elapsedTime / 3600);
+		const additionalMinutes = Math.floor((elapsedTime % 3600) / 60);
+		const additionalSeconds = elapsedTime % 60;
 
-		const formattedTime = `${hours}h ${minutes}m ${seconds}s`;
 		const timerElement = document.querySelector(`#timer-${tarefaId}`);
 		if (timerElement) {
-				timerElement.textContent = formattedTime;
+				const currentText = timerElement.textContent.split(' (+')[0];
+				const runningTime = `(+${additionalHours}h ${additionalMinutes}m ${additionalSeconds}s)`;
+				
+				timerElement.textContent = `${currentText} ${runningTime}`;
 		}
 }
 
 function updateTaskUI(tarefaId, horas, minutos) {
-		const startBtn = document.querySelector(`#start-btn-${tarefaId}`);
-		const stopBtn = document.querySelector(`#stop-btn-${tarefaId}`);
-		const timerElement = document.querySelector(`#timer-${tarefaId}`);
+    const startBtn = document.querySelector(`#start-btn-${tarefaId}`);
+    const stopBtn = document.querySelector(`#stop-btn-${tarefaId}`);
+    const timerElement = document.querySelector(`#timer-${tarefaId}`);
 
-		if (startBtn && stopBtn) {
-				startBtn.style.display = 'inline';
-				stopBtn.style.display = 'none';
-		}
+    if (startBtn && stopBtn) {
+        startBtn.style.display = 'inline';
+        stopBtn.style.display = 'none';
+    }
 
-		if (timerElement) {
-				timerElement.textContent = `${horas}h ${minutos}m`;
-		}
+    if (timerElement) {
+        timerElement.textContent = `${horas}h ${minutos}m`;
+    }
 }
 
 function handleBeforeUnload(event) {
@@ -140,6 +144,8 @@ window.addEventListener('load', () => {
 
 										timers[tarefaId] = {
 												startTime: startTime,
+												tempoUtilizadoHoras: parseInt(data.tempo_utilizado_horas) || 0,
+												tempoUtilizadoMinutos: parseInt(data.tempo_utilizado_minutos) || 0,
 												interval: setInterval(() => updateTimer(tarefaId), 1000)
 										};
 
