@@ -12,6 +12,7 @@ class CreateProjetosTable extends Migration
 			$table->id();
 			$table->string('nome', 255);
 			$table->text('descricao')->nullable();
+			$table->foreignId('user_id')->constrained('users')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}

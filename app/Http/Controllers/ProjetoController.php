@@ -10,7 +10,8 @@ class ProjetoController extends Controller
 {
 	public function index()
 	{
-		$projetos = Projeto::with(['listas.tarefas'])->get();
+		$userId = auth()->id();
+		$projetos = Projeto::where('user_id', $userId)->with(['listas.tarefas'])->get();
 
 		return view('painel', compact('projetos'));
 	}
@@ -31,20 +32,22 @@ class ProjetoController extends Controller
 			return redirect()->back()->withErrors($validator)->withInput();
 		}
 
-		Projeto::create($request->all());
+		Projeto::create(array_merge($request->all(), ['user_id' => auth()->id()]));
 
 		return redirect()->route('projetos.index')->with('status', 'Projeto criado com sucesso!');
 	}
 
 	public function edit($id)
 	{
-		$projeto = Projeto::findOrFail($id);
+		$userId = auth()->id();
+		$projeto = Projeto::where('id', $id)->where('user_id', $userId)->firstOrFail();
 		return view('painel.projetos.editar', compact('projeto'));
 	}
 
 	public function update(Request $request, $id)
 	{
-		$projeto = Projeto::findOrFail($id);
+		$userId = auth()->id();
+		$projeto = Projeto::where('id', $id)->where('user_id', $userId)->firstOrFail();
 
 		$validator = Validator::make($request->all(), [
 			'nome' => 'required|string|min:3|max:255',
@@ -70,7 +73,8 @@ class ProjetoController extends Controller
 
 	public function show($id)
 	{
-		$projeto = Projeto::findOrFail($id);
+		$userId = auth()->id();
+		$projeto = Projeto::where('id', $id)->where('user_id', $userId)->firstOrFail();
 		return view('painel.projetos.show', compact('projeto'));
 	}
 }

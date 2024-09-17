@@ -17,6 +17,7 @@ class CreateTarefasTable extends Migration
 			$table->integer('tempo_utilizado_horas')->nullable();
 			$table->integer('tempo_utilizado_minutos')->nullable();
 			$table->boolean('status')->default(false);
+			$table->foreignId('user_id')->constrained('users')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}

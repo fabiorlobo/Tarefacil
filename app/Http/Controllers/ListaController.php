@@ -11,13 +11,15 @@ class ListaController extends Controller
 {
 	public function index()
 	{
-		$listas = Lista::all();
+		$userId = auth()->id();
+		$listas = Lista::where('user_id', $userId)->get();
 		return view('painel.listas.index', compact('listas'));
 	}
 
 	public function create()
 	{
-		$projetos = Projeto::all();
+		$userId = auth()->id();
+		$projetos = Projeto::where('user_id', $userId)->get();
 		return view('painel.listas.criar', compact('projetos'));
 	}
 
@@ -35,26 +37,31 @@ class ListaController extends Controller
 			return redirect()->back()->withErrors($validator)->withInput();
 		}
 
+		$data = $request->all();
+		$data['user_id'] = auth()->id();
+
 		if ($request->filled('projeto_id') && !is_numeric($request->projeto_id)) {
-			$projeto = Projeto::create(['nome' => $request->projeto_id]);
-			$request->merge(['projeto_id' => $projeto->id]);
+			$projeto = Projeto::create(['nome' => $request->projeto_id, 'user_id' => auth()->id()]);
+			$data['projeto_id'] = $projeto->id;
 		}
 
-		Lista::create($request->all());
+		Lista::create($data);
 
 		return redirect()->route('listas.index')->with('status', 'Lista criada com sucesso!');
 	}
 
 	public function edit($id)
 	{
-		$lista = Lista::findOrFail($id);
-		$projetos = Projeto::all();
+		$userId = auth()->id();
+		$lista = Lista::where('id', $id)->where('user_id', $userId)->firstOrFail();
+		$projetos = Projeto::where('user_id', $userId)->get();
 		return view('painel.listas.editar', compact('lista', 'projetos'));
 	}
 
 	public function update(Request $request, $id)
 	{
-		$lista = Lista::findOrFail($id);
+		$userId = auth()->id();
+		$lista = Lista::where('id', $id)->where('user_id', $userId)->firstOrFail();
 
 		$validator = Validator::make($request->all(), [
 			'nome' => 'required|string|min:3|max:255',
@@ -68,25 +75,29 @@ class ListaController extends Controller
 			return redirect()->back()->withErrors($validator)->withInput();
 		}
 
+		$data = $request->all();
+		$data['user_id'] = $userId;
 		if ($request->filled('projeto_id') && !is_numeric($request->projeto_id)) {
-			$projeto = Projeto::create(['nome' => $request->projeto_id]);
-			$request->merge(['projeto_id' => $projeto->id]);
+			$projeto = Projeto::create(['nome' => $request->projeto_id, 'user_id' => $userId]);
+			$data['projeto_id'] = $projeto->id;
 		}
 
-		$lista->update($request->all());
+		$lista->update($data);
 
 		return redirect()->route('listas.index')->with('status', 'Lista atualizada com sucesso!');
 	}
 
 	public function show($id)
 	{
-		$lista = Lista::with('tarefas')->findOrFail($id);
+		$userId = auth()->id();
+		$lista = Lista::where('id', $id)->where('user_id', $userId)->with('tarefas')->firstOrFail();
 		return view('painel.listas.show', compact('lista'));
 	}
 
 	public function destroy($id)
 	{
-		$lista = Lista::findOrFail($id);
+		$userId = auth()->id();
+		$lista = Lista::where('id', $id)->where('user_id', $userId)->firstOrFail();
 		$lista->delete();
 
 		return redirect()->route('listas.index')->with('status', 'Lista excluída com sucesso!');

@@ -11,7 +11,8 @@ class TarefaController extends Controller
 {
 	public function create($listaId = null)
 	{
-		$listas = Lista::all();
+		$userId = auth()->id();
+		$listas = Lista::where('user_id', $userId)->get();
 		return view('painel.tarefas.criar', compact('listas', 'listaId'));
 	}
 
@@ -19,41 +20,48 @@ class TarefaController extends Controller
 	{
 		$validator = Validator::make($request->all(), [
 			'descricao' => 'required|string|min:3|max:1000',
-			'lista_id' => 'required|string',
+			'lista_id' => 'required',
 			'tempo_previsto_horas' => 'nullable|integer|min:0|max:23',
 			'tempo_previsto_minutos' => 'nullable|integer|min:0|max:59',
 			'tempo_utilizado_horas' => 'nullable|integer|min:0|max:23',
 			'tempo_utilizado_minutos' => 'nullable|integer|min:0|max:59',
 		]);
-
+	
 		if ($validator->fails()) {
 			return redirect()->back()->withErrors($validator)->withInput();
 		}
-
-		if ($request->filled('lista_id') && !is_numeric($request->lista_id)) {
-			$lista = Lista::create(['nome' => $request->lista_id]);
-			$request->merge(['lista_id' => $lista->id]);
+	
+		$data = $request->all();
+		$data['user_id'] = auth()->id();
+	
+		if (!is_numeric($request->lista_id)) {
+			$lista = Lista::create(['nome' => $request->lista_id, 'user_id' => auth()->id()]);
+			$data['lista_id'] = $lista->id;
+		} else {
+			$data['lista_id'] = (int) $request->lista_id;
 		}
-
-		Tarefa::create($request->all());
-
-		return redirect()->route('listas.show', $request->lista_id)->with('status', 'Tarefa criada com sucesso!');
-	}
+	
+		Tarefa::create($data);
+	
+		return redirect()->route('listas.show', $data['lista_id'])->with('status', 'Tarefa criada com sucesso!');
+	}	
 
 	public function edit($id)
 	{
-		$tarefa = Tarefa::findOrFail($id);
-		$listas = Lista::all();
+		$userId = auth()->id();
+		$tarefa = Tarefa::where('id', $id)->where('user_id', $userId)->firstOrFail();
+		$listas = Lista::where('user_id', $userId)->get();
 		return view('painel.tarefas.editar', compact('tarefa', 'listas'));
 	}
 
 	public function update(Request $request, $id)
 	{
-		$tarefa = Tarefa::findOrFail($id);
+		$userId = auth()->id();
+		$tarefa = Tarefa::where('id', $id)->where('user_id', $userId)->firstOrFail();
 
 		$validator = Validator::make($request->all(), [
 			'descricao' => 'required|string|min:3|max:1000',
-			'lista_id' => 'required|string',
+			'lista_id' => 'required|integer',
 			'tempo_previsto_horas' => 'nullable|integer|min:0|max:23',
 			'tempo_previsto_minutos' => 'nullable|integer|min:0|max:59',
 			'tempo_utilizado_horas' => 'nullable|integer|min:0|max:23',
@@ -64,12 +72,15 @@ class TarefaController extends Controller
 			return redirect()->back()->withErrors($validator)->withInput();
 		}
 
+		$data = $request->all();
+		$data['user_id'] = $userId;
+
 		if ($request->filled('lista_id') && !is_numeric($request->lista_id)) {
-			$lista = Lista::create(['nome' => $request->lista_id]);
-			$request->merge(['lista_id' => $lista->id]);
+			$lista = Lista::create(['nome' => $request->lista_id, 'user_id' => $userId]);
+			$data['lista_id'] = $lista->id;
 		}
 
-		$tarefa->update($request->all());
+		$tarefa->update($data);
 
 		return redirect()->route('listas.show', $tarefa->lista_id)->with('status', 'Tarefa atualizada com sucesso!');
 	}
@@ -78,7 +89,7 @@ class TarefaController extends Controller
 	{
 		$tarefa = Tarefa::findOrFail($id);
 		$tarefa->in_progress = true;
-		$tarefa->start_time = now(); // Garantir que o horário é salvo em UTC
+		$tarefa->start_time = now();
 		$tarefa->save();
 
 		return response()->json(['status' => 'success', 'start_time' => $tarefa->start_time->format('Y-m-d H:i:s')]);
@@ -124,7 +135,8 @@ class TarefaController extends Controller
 
 	public function destroy($id)
 	{
-		$tarefa = Tarefa::findOrFail($id);
+		$userId = auth()->id();
+		$tarefa = Tarefa::where('id', $id)->where('user_id', $userId)->firstOrFail();
 		$tarefa->delete();
 
 		return redirect()->route('listas.show', $tarefa->lista_id)->with('status', 'Tarefa excluída com sucesso!');
@@ -139,6 +151,4 @@ class TarefaController extends Controller
 
 		return response()->json(['status' => 'success']);
 	}
-
-
 }

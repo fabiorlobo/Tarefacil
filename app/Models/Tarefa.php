@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Tarefa extends Model
 {
@@ -19,7 +20,13 @@ class Tarefa extends Model
 		'status',
 		'in_progress',
 		'start_time',
+		'user_id',
 	];
+
+	public function user()
+	{
+		return $this->belongsTo(User::class);
+	}
 
 	public function lista()
 	{

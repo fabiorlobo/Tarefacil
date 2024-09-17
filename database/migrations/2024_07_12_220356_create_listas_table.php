@@ -11,6 +11,7 @@ class CreateListasTable extends Migration
 		if (!Schema::hasTable('listas')) {
 			Schema::create('listas', function (Blueprint $table) {
 				$table->id();
+				$table->foreignId('user_id')->constrained('users')->onDelete('cascade');
 				$table->string('nome');
 				$table->text('descricao')->nullable();
 				$table->foreignId('projeto_id')->nullable()->constrained('projetos')->onDelete('cascade');
