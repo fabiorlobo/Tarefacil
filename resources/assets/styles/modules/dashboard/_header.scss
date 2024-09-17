@@ -1,0 +1,76 @@
+.header {
+	position: relative;
+	
+	@include media($tablet, max) {
+		align-items: center;
+		border-bottom: 1px solid var(--lt-color-border-primary);
+		display: flex;
+		gap: $colMargin;
+		justify-content: space-between;
+		padding: $colMarginHalf 0;
+	}
+
+	&__logo {
+		display: table;
+		margin: 0;
+	}
+
+	&__user {
+		align-items: center;
+		display: flex;
+		flex-wrap: nowrap;
+		gap: $colMarginThird;
+		justify-content: space-between;
+	
+		@include media($tablet, min) {
+			border-bottom: 1px solid var(--lt-color-border-primary);
+			border-top: 1px solid var(--lt-color-border-primary);
+			margin: $colMarginHalf 0 $colMargin 0;
+			padding: $colMarginThird 0;
+		}
+
+		&__link {
+			@include media($tablet, min) {
+				align-items: center;
+				display: flex;
+				flex-wrap: nowrap;
+				gap: $colMarginThird;
+				max-width: calc(100% - #{$colMarginThird} - 15px);
+			}
+		}
+
+		&__avatar {
+			border-radius: 30px;
+			display: block;
+		}
+
+		&__name {
+			@include media($tablet, max) {
+				display: none;
+			}
+		
+			@include media($tablet, min) {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				@include fontRead(14);
+				@include fontTitle;
+			}
+		}
+
+		&__form {
+			flex-shrink: 0;
+			width: 15px;
+			@include fontZero;
+		}
+
+		&__logout {
+			background: transparent;
+			border: 0;
+			cursor: pointer;
+			height: 15px;
+			padding: 0;
+			width: 15px;
+		}
+	}
+}

@@ -1,0 +1,125 @@
+/* * * * * * * * * * * * * *
+	FORMS
+* * * * * * * * * * * * * */
+
+form {
+	clear: both;
+	width: 100%;
+	
+	:focus {
+		outline-offset: -3px;
+	}
+}
+
+fieldset {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+label {
+	display: block;
+	@include fontTitle;
+}
+
+input,
+select,
+optgroup,
+textarea {
+	color: var(--lt-color-text-primary);
+	font-family: $fontText;
+	margin: 0;
+	vertical-align: top;
+	@include fontRead($fontSizeDefault);
+}
+
+input,
+select,
+textarea {
+	background: var(--lt-color-bg-form);
+	border: 1px solid var(--lt-color-border);
+	border-radius: 0;
+	width: 100%;
+}
+
+input,
+select {
+	height: 60px;
+}
+
+input[type="text"],
+textarea,
+button {
+	-webkit-appearance: none;
+}
+
+input {
+	overflow: visible;
+	padding: 0 $colMarginHalf;
+}
+
+input[type="file"] {
+	border-radius: 0;
+	border: 0;
+	height: auto;
+	padding: 0;
+	width: auto;
+}
+
+[type="checkbox"],
+[type="radio"] {
+	height: auto;
+	padding: 0;
+	vertical-align: middle;
+	width: auto;
+}
+
+select {
+	text-transform: none;
+}
+
+textarea {
+	height: 180px;
+	overflow: auto;
+	padding: $colMarginHalf;
+	resize: none;
+}
+
+[hidden] {
+	display: none;
+}
+
+.forms-content {
+	background: var(--lt-color-bg-secondary);
+	margin: $colMarginHalf auto;
+	padding: $colMargin;
+	text-align: center;
+
+	@include media($tablet, min) {
+		width: 50%;
+	}
+
+	.sidebar & {
+		width: 100%;
+	}
+
+	& > :first-child {
+		margin-top: 0;
+	}
+
+	p {
+		margin: 0;
+	}
+
+	&__input {
+		display: block;
+		margin-top: $colMarginHalf;
+		text-align: center;
+		width: 100%;
+	}
+	
+	button.button {
+		margin-top: $colMarginHalf;
+		max-width: 100%;
+	}
+}

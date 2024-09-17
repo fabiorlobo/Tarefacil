@@ -1,0 +1,49 @@
+.footer {
+	border-top: 1px solid var(--lt-color-border-primary);
+	color: var(--lt-color-secondary);
+	margin-top: $colMargin;
+	padding-top: $colMargin;
+	@include fontZero;
+
+	&--sidebar {
+		@include media($tablet, max) {
+			display: none
+		}
+	}
+
+	&--end {
+		@include media($tablet, min) {
+			display: none
+		}
+	}
+
+	&__links {
+		@include simpleList(0, 0);
+
+		li {
+			display: inline-block;
+
+			&:not(:last-child) {
+				margin-right: 3.5px;
+			}
+
+			&+li {
+				&::before {
+					content: "\2022";
+					padding-right: 3.5px;
+					@include fontRead($fontSizeSmall);
+				}
+			}
+
+			a {
+				@include fontRead($fontSizeSmall);
+			}
+		}
+	}
+
+	&__copyright {
+		display: block;
+		margin: $colMarginQuarter 0 $colMarginHalf 0;
+		@include fontRead($fontSizeSmall);
+	}
+}

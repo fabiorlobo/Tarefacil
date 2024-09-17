@@ -1,0 +1,14 @@
+.structure {
+	margin-bottom: $colMargin;
+
+	@include media($tablet, min) {
+		align-items: flex-start;
+		display: flex;
+		justify-content: center;
+		row-gap: $colMargin;
+	
+		@include media($laptop, min) {
+			column-gap: $colMargin;
+		}
+	}
+}

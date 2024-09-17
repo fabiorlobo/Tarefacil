@@ -1,0 +1,178 @@
+.main-menu {
+	@include media($tablet, max) {
+		align-items: center;
+		background: var(--lt-color-bg-secondary);
+		border-top: 1px solid var(--lt-color-border-primary);
+		bottom: 0;
+		display: flex;
+		height: 60px;
+		justify-content: stretch;
+		left: 0;
+		position: fixed;
+		right: 0;
+		z-index: 10;
+		@include fontRead(12);
+	}
+
+	@include media($tablet, min) {
+		@include fontTitle;
+	}
+
+	// List
+
+	&__list {
+		@include simpleList(0, 0);
+
+		@include media($tablet, max) {
+			align-items: center;
+			display: flex;
+			justify-content: space-around;
+			text-align: center;
+			width: 100%;
+		}
+	}
+
+	// Item
+
+	&__item {
+		@include media($tablet, min) {
+			margin-top: $colMargin - $colMarginQuarter;
+			position: relative;
+
+			&:first-child {
+				display: none;
+			}
+		}
+
+		&__link {
+			@include media($tablet, min) {
+				align-items: center;
+				display: flex;
+				gap: $colMarginThird;
+			}
+		}
+
+		.icon {
+			@include media($tablet, max) {
+				height: 18px;
+				margin-bottom: 3.5px;
+			}
+
+			@include media($tablet, min) {
+				width: 17px;
+			}
+
+			path {
+				fill: var(--lt-color-text-primary);
+			}
+		}
+
+		a {
+			color: var(--lt-color-text-primary);
+
+			@include media($tablet, max) {
+				display: block;
+			}
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+
+		&__expand {
+			@include media($tablet, max) {
+				display: none;
+			}
+
+			@include media($tablet, min) {
+				background: transparent;
+				border: 0;
+				border-radius: 50%;
+				content: "";
+				cursor: pointer;
+				height: 24px;
+				position: absolute;
+				right: -4px;
+				top: -2px;
+				transition: background .3s ease-out;
+				width: 24px;
+				@include fontZero;
+
+				&:hover {
+					background: var(--lt-color-border-primary);
+				}
+
+				&::after {
+					@include arrow(
+						$size:4px,
+						$color:var(--lt-color-text-primary),
+						$x:right,
+						$y:top,
+						$x-margin:calc(50% - 4px),
+						$y-margin:calc(50% - 2px),
+						$pointing:bottom
+					);
+
+					.main-menu__item--submenu-active & {
+						transform: rotate(-180deg);
+					}
+				}
+			}
+		}
+
+		// Item link
+
+		&--submenu > a {
+			@include media($tablet, min) {
+				padding-right: $colMarginHalf + $colMargin - $colMarginQuarter;
+			}
+		}
+	}
+
+	// Submenu
+
+	&__submenu {
+		@include media($tablet, max) {
+			display: none;
+		}
+
+		@include media($tablet, min) {
+			border-bottom: 1px solid transparent;
+			max-height: 0;
+			overflow: hidden;
+			transition: border .6s ease-out .3s, margin .3s ease-out, max-height .6s ease-out, padding .3s ease-out;
+			@include simpleList(0, 0);
+		}
+
+		.main-menu__item--submenu-active & {
+			@include media($tablet, min) {
+				border-bottom-color: var(--lt-color-border-primary);
+				margin-top: $colMargin - $colMarginQuarter;
+				max-height: 100vh;
+				overflow: auto;
+				margin-top: $colMargin - $colMarginQuarter;
+				padding-bottom: $colMargin - $colMarginQuarter;
+			}
+		}
+
+		// Submenu item
+	
+		&__item {
+			@include media($tablet, min) {
+				padding-left: 17px + $colMarginThird;
+				position: relative;
+
+				&:not(:first-child) {
+					margin-top: $colMargin - $colMarginQuarter;
+				}
+
+				&__link {
+					align-items: center;
+					display: flex;
+					gap: $colMarginThird;
+					justify-content: space-between;
+				}
+			}
+		}
+	}
+}

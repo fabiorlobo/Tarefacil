@@ -1,0 +1,19 @@
+@font-face {
+	font-display: swap;
+	font-family: 'Barlow';
+	font-style: normal;
+	font-weight: bold;
+	src: local('Barlow Bold'), local('Barlow-Bold'),
+			url('/resources/assets/fonts/barlow-bold-webfont.woff2') format('woff2'),
+			url('/resources/assets/fonts/barlow-bold-webfont.woff') format('woff');
+}
+
+@font-face {
+	font-display: swap;
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: normal;
+	src: local('Roboto Regular'), local('Roboto-Regular'),
+			url('/resources/assets/fonts/roboto-regular-webfont.woff2') format('woff2'),
+			url('/resources/assets/fonts/roboto-regular-webfont.woff') format('woff');
+}

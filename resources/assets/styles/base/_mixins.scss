@@ -1,0 +1,149 @@
+/* * * * * * * * * * * * * *
+	FONTS
+* * * * * * * * * * * * * */
+
+@mixin fontTitle {
+	font-family: $fontTitle;
+	font-weight: bold;
+}
+
+@mixin fontText {
+	font-family: $fontText;
+	font-weight: normal;
+}
+
+@mixin fontZero {
+	font-size: 0;
+	line-height: 1;
+}
+
+/* * * * * * * * * * * * * *
+	FONT-SIZE & LINE-HEIGHT
+
+	Converts px to rem.
+
+	Use only numbers.
+
+	Example: @include fontRead(20, 12);
+* * * * * * * * * * * * * */
+
+@mixin fontRead(
+	$font-size:$fontSizeBase,
+	$line-height-sum:$lineHeightSum
+) {
+	font-size: calc($font-size / $fontSizeDefault) + rem;
+	line-height: calc(calc($font-size + $line-height-sum) / $fontSizeDefault) + rem;
+}
+
+/* * * * * * * * * * * * * *
+	MEDIA QUERIES
+
+	@include media
+	min: min-width (bigger screens)
+	max: max-width (smaller screens)
+
+	Examples:
+
+	@include media($tablet, max) {
+		...
+	}
+
+	@include media($tablet, min) {
+		...
+	}
+
+	= = = = = = = = = = = = = = = = = = = = =
+
+	@include media($smartphone, max) {
+		...
+	}
+
+	@include media($smartphone, min) {
+		@include media($tablet, max) {
+			...
+		}
+
+		@include media($tablet, min) {
+			...
+		}
+	}
+
+	@include mediaMaxMin
+
+	Examples:
+
+	@include mediaMaxMin($tablet, $smartphone) {
+		...
+	}
+
+	@include media($desktop, min) {
+		...
+	}
+* * * * * * * * * * * * * */
+
+@mixin media($breakpoint, $limit) {
+	@if $limit == min {
+		$breakpoint: $breakpoint + 1px;
+		@media (min-width: $breakpoint) {@content;}
+	}
+	@else if $limit == max {
+		@media (max-width: $breakpoint) {@content;}
+	}
+}
+
+@mixin mediaMaxMin($breakpoint-max, $breakpoint-min) {
+	$breakpoint-max: $breakpoint-max + 1px;
+	@media (max-width: $breakpoint-max) and (min-width: $breakpoint-min) {@content;}
+}
+
+/* * * * * * * * * * * * * *
+	PATTERNS
+* * * * * * * * * * * * * */
+
+@mixin arrow(
+	$size:5px,
+	$color:var(--lt-color-secondary),
+	$x:left,
+	$y:top,
+	$x-margin:calc(50% - #{$size} / 2),
+	$y-margin:-5px,
+	$pointing:top
+) {
+	#{$x}: $x-margin;
+	#{$y}: $y-margin;
+	@if $pointing == top {
+		border-bottom: $size solid $color;
+		border-left: $size solid transparent;
+		border-right: $size solid transparent;
+	} @else if $pointing == right {
+		border-bottom: $size solid transparent;
+		border-left: $size solid $color;
+		border-top: $size solid transparent;
+	} @else if $pointing == bottom {
+		border-left: $size solid transparent;
+		border-right: $size solid transparent;
+		border-top: $size solid $color;
+	} @else if $pointing == left {
+		border-bottom: $size solid transparent;
+		border-right: $size solid $color;
+		border-top: $size solid transparent;
+	}
+	content: "";
+	position: absolute;
+	transition: all .3s ease-out;
+	width: 0;
+}
+
+@mixin totalFill {
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+@mixin simpleList($margin, $padding) {
+	list-style: none;
+	margin: $margin;
+	padding: $padding;
+}

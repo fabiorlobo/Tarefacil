@@ -1,0 +1,21 @@
+/*
+	CSS with gulp compass and BEM methodology.
+
+	Do not edit CSS files!
+*/
+
+/* * * * * * * * * * * * * *
+	BASE
+* * * * * * * * * * * * * */
+@import "base/_variables";
+@import "base/_mixins";
+
+/* * * * * * * * * * * * * *
+	STRUCTURE
+* * * * * * * * * * * * * */
+@import "modules/dashboard/_structure";
+
+// Header and sidebar
+@import "modules/dashboard/_options";
+@import "modules/dashboard/_header";
+@import "modules/dashboard/_main-menu";

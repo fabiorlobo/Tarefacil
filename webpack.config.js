@@ -8,14 +8,15 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-// Obter os arquivos de scripts e estilos
-const scriptEntries = glob.sync('./resources/assets/scripts/**/*.js').reduce((acc, filePath) => {
-	const entry = path.basename(filePath, path.extname(filePath));
-	acc[entry] = path.resolve(__dirname, filePath);
+const styleEntries = glob.sync('./resources/assets/styles/**/*.scss').reduce((acc, filePath) => {
+	if (!filePath.includes('/_')) {
+		const entry = path.basename(filePath, path.extname(filePath));
+		acc[entry] = path.resolve(__dirname, filePath);
+	}
 	return acc;
 }, {});
 
-const styleEntries = glob.sync('./resources/assets/styles/**/*.scss').reduce((acc, filePath) => {
+const scriptEntries = glob.sync('./resources/assets/scripts/**/*.js').reduce((acc, filePath) => {
 	const entry = path.basename(filePath, path.extname(filePath));
 	acc[entry] = path.resolve(__dirname, filePath);
 	return acc;
@@ -40,6 +41,13 @@ module.exports = {
 					'css-loader',
 					'sass-loader'
 				]
+			},
+			{
+				test: /\.(woff|woff2|eot|ttf|otf)$/,
+				type: 'asset/resource',
+				generator: {
+					filename: 'fonts/[name][ext]'
+				}
 			}
 		]
 	},
@@ -47,7 +55,7 @@ module.exports = {
 		extensions: ['.js', '.scss']
 	},
 	optimization: {
-		minimize: false, // Desativa a minificação do JavaScript
+		minimize: false,
 	},
 	plugins: [
 		new MiniCssExtractPlugin({
@@ -59,7 +67,7 @@ module.exports = {
 		new CopyWebpackPlugin({
 			patterns: [
 				{
-					from: path.resolve(__dirname, 'resources/assets/scripts'), // Copia os scripts JS sem modificação
+					from: path.resolve(__dirname, 'resources/assets/scripts'),
 					to: path.resolve(__dirname, 'public/assets/scripts')
 				},
 				{

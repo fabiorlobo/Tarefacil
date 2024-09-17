@@ -1,0 +1,50 @@
+/* * * * * * * * * * * * * *
+	SIZES
+* * * * * * * * * * * * * */
+
+$colMargin: 30px;
+$colMargin2x: calc($colMargin * 2);
+$colMargin3x: calc($colMargin * 3);
+$colMargin4x: calc($colMargin * 4);
+$colMarginHalf: calc($colMargin / 2);
+$colMarginThird: calc($colMargin / 3);
+$colMarginQuarter: calc($colMargin / 4);
+
+$sidebarSize: 225px + $colMargin;
+$siteMaxWidth: 1015px + $colMargin2x;
+$siteMinWidth: 300px + $colMargin2x;
+
+/* * * * * * * * * * * * * *
+	TEXT
+* * * * * * * * * * * * * */
+
+$fontText: 'Roboto', sans-serif;
+$fontTitle: 'Barlow', sans-serif;
+
+$fontSizeDefault: 16;
+$fontSizeBase: 20;
+$fontSizeUltra: 72;
+$fontSizeMax: 56;
+$fontSizeh1: 44;
+$fontSizeh2: 36;
+$fontSizeh3: 28;
+$fontSizeh4: 20;
+$fontSizeh5: 16;
+$fontSizeh6: 14;
+$fontSizeSmall: 12;
+$lineHeightSum: 4;
+$lineHeightTextSum: 12;
+
+/* * * * * * * * * * * * * *
+	VIEWPORT
+* * * * * * * * * * * * * */
+
+$smartphone: 480px;
+$phablet: 640px;
+$tablet: 768px;
+$laptop: 980px;
+$desktop: 1024px;
+$tv: 1280px;
+$hd: 1440px;
+$fullhd: 1600px;
+$ultrawide: 1920px;

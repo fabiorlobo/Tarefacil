@@ -1,0 +1,12 @@
+.options {
+	@include media($tablet, min) {
+		flex-shrink: 0;
+		left: $colMargin;
+		max-height: 100vh;
+		overflow: auto;
+		padding: $colMargin $colMargin 0 0;
+		position: sticky;
+		top: 0;
+		width: $sidebarSize;
+	}
+}
