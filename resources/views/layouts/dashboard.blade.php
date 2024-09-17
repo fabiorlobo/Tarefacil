@@ -16,7 +16,8 @@
 		<div class="options">
 
 			<header class="header" role="banner">
-				<a href="/painel"><?php \App\Helpers\SvgHelper::render( [ 'name' => 'logo', 'type' => 'logo', 'class' => 'center' ] ); ?></a>
+				<a
+					href="/painel"><?php \App\Helpers\SvgHelper::render(['name' => 'logo', 'type' => 'logo', 'class' => 'center']); ?></a>
 
 				<div class="header__user">
 					<img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}">
@@ -30,6 +31,10 @@
 
 			<nav class="main-menu">
 				<ul class="main-menu__list">
+					@if (auth()->user()->is_super_admin)
+						<li class="main-menu__item"><a href="{{ route('usuarios.index') }}">Usuários</a></li>
+					@endif
+
 					<li class="main-menu__item">
 						<a href="/painel/projetos">Projetos</a>
 						<ul class="main-menu__submenu">

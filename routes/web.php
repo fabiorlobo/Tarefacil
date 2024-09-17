@@ -10,6 +10,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ListaController;
 use App\Http\Controllers\TarefaController;
 use App\Http\Controllers\ProjetoController;
+use App\Http\Controllers\UserController;
 
 // Rota para a home
 Route::get('/', function () {
@@ -34,6 +35,10 @@ Route::get('/painel', [ProjetoController::class, 'index'])->middleware('auth')->
 Route::get('painel/conta', [AccountController::class, 'show'])->name('account.show')->middleware('auth');
 Route::post('painel/conta', [AccountController::class, 'update'])->name('account.update')->middleware('auth');
 Route::post('painel/conta/excluir', [AccountController::class, 'destroy'])->name('account.destroy')->middleware('auth');
+Route::middleware('auth')->group(function () {
+	Route::get('/painel/usuarios', [UserController::class, 'index'])->name('usuarios.index');
+	Route::delete('/painel/usuarios/{id}', [UserController::class, 'destroy'])->name('usuarios.destroy');
+});
 
 // Listas
 Route::get('/painel/listas', [ListaController::class, 'index'])->name('listas.index');
