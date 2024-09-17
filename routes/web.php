@@ -28,9 +28,7 @@ Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
 // Painel
-Route::get('/painel', function () {
-	return view('painel');
-})->middleware('auth')->name('painel');
+Route::get('/painel', [ProjetoController::class, 'index'])->middleware('auth')->name('painel');
 
 // Conta do usuário
 Route::get('painel/conta', [AccountController::class, 'show'])->name('account.show')->middleware('auth');
@@ -56,6 +54,7 @@ Route::delete('/painel/tarefas/{id}', [TarefaController::class, 'destroy'])->nam
 Route::post('/painel/tarefas/{id}/start', [TarefaController::class, 'startTracker'])->name('tarefas.start');
 Route::post('/painel/tarefas/{id}/stop', [TarefaController::class, 'stopTracker'])->name('tarefas.stop');
 Route::get('/painel/tarefas/{id}/check-status', [TarefaController::class, 'checkStatus']);
+Route::post('/painel/tarefas/{id}/concluir', [TarefaController::class, 'concluir'])->name('tarefas.concluir');
 
 // Projetos
 Route::prefix('painel')->middleware('auth')->group(function () {

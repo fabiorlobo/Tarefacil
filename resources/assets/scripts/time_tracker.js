@@ -116,6 +116,7 @@ function handleBeforeUnload(event) {
 
 window.startTracker = startTracker;
 window.stopTracker = stopTracker;
+window.concluirTarefa = concluirTarefa;
 
 setInterval(() => {
 		if (isTracking && currentTarefaId !== null) {
@@ -162,3 +163,25 @@ window.addEventListener('load', () => {
 						});
 		});
 });
+
+function concluirTarefa(tarefaId) {
+	const checkbox = document.getElementById(`tarefa-${tarefaId}`);
+	const concluido = checkbox.checked ? 'true' : 'false';
+
+	fetch(`/painel/tarefas/${tarefaId}/concluir`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+		},
+		body: JSON.stringify({ status: concluido })
+	})
+	.then(response => response.json())
+	.then(data => {
+		if (data.status === 'success') {
+			alert('Tarefa atualizada com sucesso!');
+		} else {
+			alert('Erro ao atualizar a tarefa.');
+		}
+	});
+}

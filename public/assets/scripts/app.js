@@ -1,4 +1,27 @@
-(()=>{var __webpack_modules__={"./resources/assets/scripts/app.js":
-/*!*****************************************!*\
-  !*** ./resources/assets/scripts/app.js ***!
-  \*****************************************/()=>{eval('// Select2\n\n$(document).ready(function () {\n  $(\'.select2\').select2({\n    tags: true,\n    createTag: function createTag(params) {\n      return {\n        id: params.term,\n        text: params.term,\n        newOption: true\n      };\n    },\n    templateResult: function templateResult(data) {\n      var $result = $("<span></span>");\n      $result.text(data.text);\n      if (data.newOption) {\n        $result.append(" <em>(novo)</em>");\n      }\n      return $result;\n    }\n  });\n});\n\n//# sourceURL=webpack:///./resources/assets/scripts/app.js?')}},__webpack_exports__={};__webpack_modules__["./resources/assets/scripts/app.js"]()})();
+/******/ (() => { // webpackBootstrap
+// Select2
+
+$(document).ready(function () {
+	$('.select2').select2({
+			tags: true,
+			createTag: function (params) {
+					return {
+							id: params.term,
+							text: params.term,
+							newOption: true
+					}
+			},
+			templateResult: function (data) {
+					var $result = $("<span></span>");
+					$result.text(data.text);
+
+					if (data.newOption) {
+							$result.append(" <em>(novo)</em>");
+					}
+
+					return $result;
+			}
+	});
+});
+/******/ })()
+;

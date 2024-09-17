@@ -1,4 +1,190 @@
-(()=>{var __webpack_modules__={"./resources/assets/scripts/time_tracker.js":
-/*!**************************************************!*\
-  !*** ./resources/assets/scripts/time_tracker.js ***!
-  \**************************************************/()=>{eval("console.log('time_tracker.js carregado');\nvar timers = {};\nvar isTracking = false;\nvar currentTarefaId = null;\nfunction startTracker(tarefaId) {\n  console.log('startTracker chamado para tarefa', tarefaId);\n  if (!timers[tarefaId]) {\n    fetch(\"/painel/tarefas/\".concat(tarefaId, \"/start\"), {\n      method: 'POST',\n      headers: {\n        'Content-Type': 'application/json',\n        'X-CSRF-TOKEN': document.querySelector('meta[name=\"csrf-token\"]').getAttribute('content')\n      }\n    }).then(function (response) {\n      return response.json();\n    }).then(function (data) {\n      if (data.status === 'success') {\n        var startTime = new Date(data.start_time + 'Z').getTime();\n        timers[tarefaId] = {\n          startTime: startTime,\n          tempoUtilizadoHoras: parseInt(data.tempo_utilizado_horas) || 0,\n          tempoUtilizadoMinutos: parseInt(data.tempo_utilizado_minutos) || 0,\n          interval: setInterval(function () {\n            return updateTimer(tarefaId);\n          }, 1000)\n        };\n        isTracking = true;\n        currentTarefaId = tarefaId;\n        window.onbeforeunload = handleBeforeUnload;\n        var startBtn = document.querySelector(\"#start-btn-\".concat(tarefaId));\n        var stopBtn = document.querySelector(\"#stop-btn-\".concat(tarefaId));\n        console.log('Botões encontrados:', startBtn, stopBtn);\n        if (startBtn && stopBtn) {\n          startBtn.style.display = 'none';\n          stopBtn.style.display = 'inline';\n        } else {\n          console.error(\"Bot\\xF5es de iniciar/parar n\\xE3o encontrados para tarefa \".concat(tarefaId));\n        }\n      }\n    });\n  }\n}\nfunction stopTracker(tarefaId) {\n  var forceStop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;\n  console.log('stopTracker chamado para tarefa', tarefaId);\n  var timer = timers[tarefaId];\n  if (!timer) return;\n  var elapsedTime = Math.floor((Date.now() - timer.startTime) / 1000);\n  if (!forceStop && elapsedTime < 60) {\n    if (!confirm('Tempo insuficiente para registrar. Deseja parar mesmo assim?')) {\n      return;\n    }\n  }\n  fetch(\"/painel/tarefas/\".concat(tarefaId, \"/stop\"), {\n    method: 'POST',\n    headers: {\n      'Content-Type': 'application/json',\n      'X-CSRF-TOKEN': document.querySelector('meta[name=\"csrf-token\"]').getAttribute('content')\n    },\n    body: JSON.stringify({\n      elapsedTime: forceStop ? 0 : elapsedTime\n    })\n  }).then(function (response) {\n    return response.json();\n  }).then(function (data) {\n    if (data.status === 'success') {\n      clearInterval(timer.interval);\n      delete timers[tarefaId];\n      isTracking = false;\n      window.onbeforeunload = null;\n      updateTaskUI(tarefaId, data.tempo_utilizado_horas, data.tempo_utilizado_minutos);\n    } else if (data.status === 'already_stopped') {\n      alert('A tarefa já foi encerrada.');\n    }\n  });\n}\nfunction updateTimer(tarefaId) {\n  var timer = timers[tarefaId];\n  if (!timer || !timer.startTime) return;\n  var elapsedTime = Math.floor((Date.now() - timer.startTime) / 1000);\n  var additionalHours = Math.floor(elapsedTime / 3600);\n  var additionalMinutes = Math.floor(elapsedTime % 3600 / 60);\n  var additionalSeconds = elapsedTime % 60;\n  var timerElement = document.querySelector(\"#timer-\".concat(tarefaId));\n  if (timerElement) {\n    var currentText = timerElement.textContent.split(' (+')[0];\n    var runningTime = \"(+\".concat(additionalHours, \"h \").concat(additionalMinutes, \"m \").concat(additionalSeconds, \"s)\");\n    timerElement.textContent = \"\".concat(currentText, \" \").concat(runningTime);\n  }\n}\nfunction updateTaskUI(tarefaId, horas, minutos) {\n  var startBtn = document.querySelector(\"#start-btn-\".concat(tarefaId));\n  var stopBtn = document.querySelector(\"#stop-btn-\".concat(tarefaId));\n  var timerElement = document.querySelector(\"#timer-\".concat(tarefaId));\n  if (startBtn && stopBtn) {\n    startBtn.style.display = 'inline';\n    stopBtn.style.display = 'none';\n  }\n  if (timerElement) {\n    timerElement.textContent = \"\".concat(horas, \"h \").concat(minutos, \"m\");\n  }\n}\nfunction handleBeforeUnload(event) {\n  if (isTracking) {\n    event.preventDefault();\n    event.returnValue = 'Você ainda não parou a tarefa em andamento. Deseja sair mesmo assim?';\n  }\n}\nwindow.startTracker = startTracker;\nwindow.stopTracker = stopTracker;\nsetInterval(function () {\n  if (isTracking && currentTarefaId !== null) {\n    fetch(\"/painel/tarefas/\".concat(currentTarefaId, \"/check-status\")).then(function (response) {\n      return response.json();\n    }).then(function (data) {\n      if (!data.in_progress) {\n        alert('A tarefa em andamento foi encerrada.');\n        location.reload();\n      }\n    });\n  }\n}, 60000);\nwindow.addEventListener('load', function () {\n  var tarefas = document.querySelectorAll('[id^=\"timer-\"]');\n  tarefas.forEach(function (tarefa) {\n    var tarefaId = tarefa.id.split('-')[1];\n    fetch(\"/painel/tarefas/\".concat(tarefaId, \"/check-status\")).then(function (response) {\n      return response.json();\n    }).then(function (data) {\n      if (data.in_progress) {\n        var startTime = new Date(data.start_time + 'Z').getTime();\n        var currentTime = Date.now();\n        var elapsedTime = currentTime - startTime;\n        timers[tarefaId] = {\n          startTime: startTime,\n          tempoUtilizadoHoras: parseInt(data.tempo_utilizado_horas) || 0,\n          tempoUtilizadoMinutos: parseInt(data.tempo_utilizado_minutos) || 0,\n          interval: setInterval(function () {\n            return updateTimer(tarefaId);\n          }, 1000)\n        };\n        isTracking = true;\n        currentTarefaId = tarefaId;\n        var startBtn = document.querySelector(\"#start-btn-\".concat(tarefaId));\n        var stopBtn = document.querySelector(\"#stop-btn-\".concat(tarefaId));\n        if (startBtn && stopBtn) {\n          startBtn.style.display = 'none';\n          stopBtn.style.display = 'inline';\n        }\n      }\n    });\n  });\n});\n\n//# sourceURL=webpack:///./resources/assets/scripts/time_tracker.js?")}},__webpack_exports__={};__webpack_modules__["./resources/assets/scripts/time_tracker.js"]()})();
+/******/ (() => { // webpackBootstrap
+console.log('time_tracker.js carregado');
+
+let timers = {};
+let isTracking = false;
+let currentTarefaId = null;
+
+function startTracker(tarefaId) {
+		console.log('startTracker chamado para tarefa', tarefaId);
+		if (!timers[tarefaId]) {
+				fetch(`/painel/tarefas/${tarefaId}/start`, {
+						method: 'POST',
+						headers: {
+								'Content-Type': 'application/json',
+								'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+						}
+				}).then(response => response.json()).then(data => {
+						if (data.status === 'success') {
+								const startTime = new Date(data.start_time + 'Z').getTime();
+								timers[tarefaId] = {
+										startTime: startTime,
+										tempoUtilizadoHoras: parseInt(data.tempo_utilizado_horas) || 0,
+										tempoUtilizadoMinutos: parseInt(data.tempo_utilizado_minutos) || 0,
+										interval: setInterval(() => updateTimer(tarefaId), 1000)
+								};
+
+								isTracking = true;
+								currentTarefaId = tarefaId;
+								window.onbeforeunload = handleBeforeUnload;
+
+								const startBtn = document.querySelector(`#start-btn-${tarefaId}`);
+								const stopBtn = document.querySelector(`#stop-btn-${tarefaId}`);
+								console.log('Botões encontrados:', startBtn, stopBtn);
+								if (startBtn && stopBtn) {
+										startBtn.style.display = 'none';
+										stopBtn.style.display = 'inline';
+								} else {
+										console.error(`Botões de iniciar/parar não encontrados para tarefa ${tarefaId}`);
+								}
+						}
+				});
+		}
+}
+
+function stopTracker(tarefaId, forceStop = false) {
+		console.log('stopTracker chamado para tarefa', tarefaId);
+		const timer = timers[tarefaId];
+		if (!timer) return;
+
+		const elapsedTime = Math.floor((Date.now() - timer.startTime) / 1000);
+		if (!forceStop && elapsedTime < 60) {
+				if (!confirm('Tempo insuficiente para registrar. Deseja parar mesmo assim?')) {
+						return;
+				}
+		}
+
+		fetch(`/painel/tarefas/${tarefaId}/stop`, {
+				method: 'POST',
+				headers: {
+						'Content-Type': 'application/json',
+						'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+				},
+				body: JSON.stringify({ elapsedTime: forceStop ? 0 : elapsedTime })
+		}).then(response => response.json()).then(data => {
+				if (data.status === 'success') {
+						clearInterval(timer.interval);
+						delete timers[tarefaId];
+						isTracking = false;
+						window.onbeforeunload = null;
+						updateTaskUI(tarefaId, data.tempo_utilizado_horas, data.tempo_utilizado_minutos);
+				} else if (data.status === 'already_stopped') {
+						alert('A tarefa já foi encerrada.');
+				}
+		});
+}
+
+function updateTimer(tarefaId) {
+		const timer = timers[tarefaId];
+		if (!timer || !timer.startTime) return;
+
+		const elapsedTime = Math.floor((Date.now() - timer.startTime) / 1000);
+
+		const additionalHours = Math.floor(elapsedTime / 3600);
+		const additionalMinutes = Math.floor((elapsedTime % 3600) / 60);
+		const additionalSeconds = elapsedTime % 60;
+
+		const timerElement = document.querySelector(`#timer-${tarefaId}`);
+		if (timerElement) {
+				const currentText = timerElement.textContent.split(' (+')[0];
+				const runningTime = `(+${additionalHours}h ${additionalMinutes}m ${additionalSeconds}s)`;
+				
+				timerElement.textContent = `${currentText} ${runningTime}`;
+		}
+}
+
+function updateTaskUI(tarefaId, horas, minutos) {
+    const startBtn = document.querySelector(`#start-btn-${tarefaId}`);
+    const stopBtn = document.querySelector(`#stop-btn-${tarefaId}`);
+    const timerElement = document.querySelector(`#timer-${tarefaId}`);
+
+    if (startBtn && stopBtn) {
+        startBtn.style.display = 'inline';
+        stopBtn.style.display = 'none';
+    }
+
+    if (timerElement) {
+        timerElement.textContent = `${horas}h ${minutos}m`;
+    }
+}
+
+function handleBeforeUnload(event) {
+		if (isTracking) {
+				event.preventDefault();
+				event.returnValue = 'Você ainda não parou a tarefa em andamento. Deseja sair mesmo assim?';
+		}
+}
+
+window.startTracker = startTracker;
+window.stopTracker = stopTracker;
+window.concluirTarefa = concluirTarefa;
+
+setInterval(() => {
+		if (isTracking && currentTarefaId !== null) {
+				fetch(`/painel/tarefas/${currentTarefaId}/check-status`)
+						.then(response => response.json())
+						.then(data => {
+								if (!data.in_progress) {
+										alert('A tarefa em andamento foi encerrada.');
+										location.reload();
+								}
+						});
+		}
+}, 60000);
+
+window.addEventListener('load', () => {
+		const tarefas = document.querySelectorAll('[id^="timer-"]');
+		tarefas.forEach(tarefa => {
+				const tarefaId = tarefa.id.split('-')[1];
+				fetch(`/painel/tarefas/${tarefaId}/check-status`)
+						.then(response => response.json())
+						.then(data => {
+								if (data.in_progress) {
+										const startTime = new Date(data.start_time + 'Z').getTime();
+										const currentTime = Date.now();
+										const elapsedTime = currentTime - startTime;
+
+										timers[tarefaId] = {
+												startTime: startTime,
+												tempoUtilizadoHoras: parseInt(data.tempo_utilizado_horas) || 0,
+												tempoUtilizadoMinutos: parseInt(data.tempo_utilizado_minutos) || 0,
+												interval: setInterval(() => updateTimer(tarefaId), 1000)
+										};
+
+										isTracking = true;
+										currentTarefaId = tarefaId;
+
+										const startBtn = document.querySelector(`#start-btn-${tarefaId}`);
+										const stopBtn = document.querySelector(`#stop-btn-${tarefaId}`);
+										if (startBtn && stopBtn) {
+												startBtn.style.display = 'none';
+												stopBtn.style.display = 'inline';
+										}
+								}
+						});
+		});
+});
+
+function concluirTarefa(tarefaId) {
+	const checkbox = document.getElementById(`tarefa-${tarefaId}`);
+	const concluido = checkbox.checked ? 'true' : 'false';
+
+	fetch(`/painel/tarefas/${tarefaId}/concluir`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+		},
+		body: JSON.stringify({ status: concluido })
+	})
+	.then(response => response.json())
+	.then(data => {
+		if (data.status === 'success') {
+			alert('Tarefa atualizada com sucesso!');
+		} else {
+			alert('Erro ao atualizar a tarefa.');
+		}
+	});
+}
+/******/ })()
+;

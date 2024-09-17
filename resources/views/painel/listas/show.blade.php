@@ -17,7 +17,8 @@
 	<ul>
 		@foreach ($lista->tarefas as $tarefa)
 			<li>
-				{{ $tarefa->descricao }} <br>
+				<input type="checkbox" id="tarefa-{{ $tarefa->id }}" {{ $tarefa->status ? 'checked' : '' }} onchange="concluirTarefa({{ $tarefa->id }})">
+				<label for="tarefa-{{ $tarefa->id }}">{{ $tarefa->descricao }}</label><br>
 				@if ($tarefa->tempo_previsto_horas || $tarefa->tempo_previsto_minutos)
 					[Tempo previsto:
 					@if ($tarefa->tempo_previsto_horas)

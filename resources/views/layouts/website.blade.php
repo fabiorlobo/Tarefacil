@@ -2,11 +2,12 @@
 <html>
 
 <head>
-	<title>@yield('title', 'Tarefácil')</title>
-	<!-- Inclua seus estilos e scripts aqui -->
+	<title>@yield('title', 'Tarefácil') | Tarefácil</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
 </head>
 
-<body>
+<body class="template-website">
 	<header>
 		<h1>Tarefácil</h1>
 		<nav>

@@ -129,4 +129,16 @@ class TarefaController extends Controller
 
 		return redirect()->route('listas.show', $tarefa->lista_id)->with('status', 'Tarefa excluída com sucesso!');
 	}
+
+	public function concluir(Request $request, $id)
+	{
+		$tarefa = Tarefa::findOrFail($id);
+
+		$tarefa->status = filter_var($request->input('status'), FILTER_VALIDATE_BOOLEAN);
+		$tarefa->save();
+
+		return response()->json(['status' => 'success']);
+	}
+
+
 }

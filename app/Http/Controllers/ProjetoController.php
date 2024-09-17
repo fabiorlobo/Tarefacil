@@ -10,8 +10,9 @@ class ProjetoController extends Controller
 {
 	public function index()
 	{
-		$projetos = Projeto::all();
-		return view('painel.projetos.index', compact('projetos'));
+		$projetos = Projeto::with(['listas.tarefas'])->get();
+
+		return view('painel', compact('projetos'));
 	}
 
 	public function create()
