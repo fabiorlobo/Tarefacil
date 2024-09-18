@@ -1,30 +1,28 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Criar Projeto')
+@section('title', 'Criar projeto')
 
 @section('content')
-	<h2>Criar Projeto</h2>
+	<header class="heading">
+		<h1 class="title title--section title--small">Criar projeto</h1>
+
+		<div class="heading__text">
+			<p>Preencha os dados abaixo para criar seu projeto:</p>
+		</div>
+	</header>
+
 	@if (session('status'))
-		<div class="alert alert-success">{{ session('status') }}</div>
+		<div class="alert alert--success">
+			<?php \App\Helpers\SvgHelper::render(['name' => 'tasks', 'class' => 'center']); ?>
+			<span class="alert__text">{{ session('status') }}</span>
+		</div>
 	@endif
-	<form method="POST" action="{{ route('projetos.store') }}">
-		@csrf
-		<div>
-			<label for="nome">Nome:</label>
-			<input type="text" id="nome" name="nome" value="{{ old('nome') }}" required>
-			@error('nome')
-				<div class="error">{{ $message }}</div>
-			@enderror
-		</div>
-		<div>
-			<label for="descricao">Descrição:</label>
-			<textarea id="descricao" name="descricao">{{ old('descricao') }}</textarea>
-			@error('descricao')
-				<div class="error">{{ $message }}</div>
-			@enderror
-		</div>
-		<div>
-			<button type="submit">Criar Projeto</button>
-		</div>
-	</form>
+
+	<section class="main__section">
+		@include('includes.form-projetos', [
+			'action' => route('projetos.store'),
+			'isEdit' => false,
+			'buttonText' => 'Criar projeto',
+		])
+	</section>
 @endsection

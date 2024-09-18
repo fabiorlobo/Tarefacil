@@ -19,6 +19,7 @@ fieldset {
 
 label {
 	display: block;
+	margin-bottom: $colMarginThird;
 	@include fontTitle;
 }
 
@@ -36,15 +37,15 @@ textarea {
 input,
 select,
 textarea {
-	background: var(--lt-color-bg-form);
-	border: 1px solid var(--lt-color-border);
-	border-radius: 0;
+	background: var(--lt-color-bg-primary);
+	border: 1px solid var(--lt-color-border-secondary);
+	border-radius: 3px;
 	width: 100%;
 }
 
 input,
 select {
-	height: 60px;
+	height: 45px;
 }
 
 input[type="text"],
@@ -55,7 +56,7 @@ button {
 
 input {
 	overflow: visible;
-	padding: 0 $colMarginHalf;
+	padding: 0 $colMarginThird;
 }
 
 input[type="file"] {
@@ -79,47 +80,12 @@ select {
 }
 
 textarea {
-	height: 180px;
+	height: 90px;
 	overflow: auto;
-	padding: $colMarginHalf;
+	padding: $colMarginThird;
 	resize: none;
 }
 
 [hidden] {
 	display: none;
-}
-
-.forms-content {
-	background: var(--lt-color-bg-secondary);
-	margin: $colMarginHalf auto;
-	padding: $colMargin;
-	text-align: center;
-
-	@include media($tablet, min) {
-		width: 50%;
-	}
-
-	.sidebar & {
-		width: 100%;
-	}
-
-	& > :first-child {
-		margin-top: 0;
-	}
-
-	p {
-		margin: 0;
-	}
-
-	&__input {
-		display: block;
-		margin-top: $colMarginHalf;
-		text-align: center;
-		width: 100%;
-	}
-	
-	button.button {
-		margin-top: $colMarginHalf;
-		max-width: 100%;
-	}
 }

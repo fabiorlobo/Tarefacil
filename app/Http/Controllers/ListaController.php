@@ -23,11 +23,12 @@ class ListaController extends Controller
 		return $listas;
 	}
 
-	public function create()
+	public function create(Request $request)
 	{
 		$userId = auth()->id();
 		$projetos = Projeto::where('user_id', $userId)->get();
-		return view('painel.listas.criar', compact('projetos'));
+		$projetoIdSelecionado = $request->input('projeto_id');
+		return view('painel.listas.criar', compact('projetos', 'projetoIdSelecionado'));
 	}
 
 	public function store(Request $request)

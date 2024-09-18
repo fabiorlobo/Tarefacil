@@ -3,24 +3,23 @@
 @section('title', 'Projetos')
 
 @section('content')
-	<h2>Projetos</h2>
+	<header class="heading">
+		<h1 class="title title--section title--small">Meus projetos</h1>
+
+		<div class="actions">
+			<a class="actions__button" href="{{ route('projetos.create') }}">
+				<?php \App\Helpers\SvgHelper::render(['name' => 'more', 'class' => 'center']); ?>
+				<span class="actions__button__text">Novo projeto</span>
+			</a>
+		</div>
+	</header>
 
 	@if (session('status'))
-		<div class="alert alert-success">{{ session('status') }}</div>
+		<div class="alert alert--success">
+			<?php \App\Helpers\SvgHelper::render(['name' => 'tasks', 'class' => 'center']); ?>
+			<span class="alert__text">{{ session('status') }}</span>
+		</div>
 	@endif
 
-	<a href="{{ route('projetos.create') }}">Criar Novo Projeto</a>
-
-	<ul>
-		@foreach ($projetos as $projeto)
-			<li>
-				<a href="{{ route('projetos.show', $projeto->id) }}">{{ $projeto->nome }}</a>
-				<form method="POST" action="{{ route('projetos.destroy', $projeto->id) }}" style="display:inline;">
-					@csrf
-					@method('DELETE')
-					<button type="submit" onclick="return confirm('Tem certeza que deseja excluir este projeto?')">Excluir</button>
-				</form>
-			</li>
-		@endforeach
-	</ul>
+	@include('includes.projetos')
 @endsection

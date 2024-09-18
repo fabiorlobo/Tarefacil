@@ -1,0 +1,36 @@
+.alert {
+	align-items: stretch;
+	color: var(--lt-color-text-primary);
+	display: flex;
+	margin-top: $colMarginHalf;
+	@include fontRead(14);
+
+	&--form {
+		color: var(--lt-color-error);
+		margin-top: 5px;
+	}
+
+	.icon {
+		flex-shrink: 0;
+		height: auto;
+		width: 30px;
+
+		path {
+			fill: var(--lt-color-bg-primary);
+		}
+	}
+
+	&--success .icon {
+		background: var(--lt-color-primary);
+		border-radius: 3px 0 0 3px;
+	}
+
+	&__text {
+		background: var(--lt-color-bg-secondary);
+		border: 1px solid var(--lt-color-border-primary);
+		border-left: 0;
+		border-radius: 0 3px 3px 0;
+		flex-grow: 1;
+		padding: 5px $colMarginThird;
+	}
+}

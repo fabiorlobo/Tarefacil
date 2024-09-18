@@ -1,0 +1,37 @@
+.button {
+	background: var(--lt-color-primary);
+	border-radius: 3px;
+	border: 0;
+	color: var(--lt-color-bg-primary);
+	cursor: pointer;
+	display: table;
+	height: auto;
+	margin: 0 auto;
+	max-width: 240px;
+	padding: 12.5px $colMarginHalf;
+	text-align: center;
+	text-decoration: none;
+	transition: all .3s ease-out;
+	width: 100%;
+	-webkit-appearance: none;
+	@include fontTitle;
+	@include fontRead($fontSizeDefault);
+
+	&:not(a):not(div) {
+		height: 45px;
+		padding-bottom: 0;
+		padding-top: 0;
+	}
+
+	&:hover {
+		background: var(--lt-color-secondary);
+	}
+
+	&:disabled {
+		opacity: .33;
+	}
+
+	&--max {
+		max-width: 100%;
+	}
+}

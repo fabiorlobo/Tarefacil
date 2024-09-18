@@ -1,0 +1,13 @@
+.form {
+	&__fields {
+		display: flex;
+		flex-wrap: wrap;
+		gap: $colMarginHalf;
+	}
+
+	&__field {
+		&--1-1 {
+			width: 100%;
+		}
+	}
+}

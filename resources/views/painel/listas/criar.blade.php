@@ -28,7 +28,7 @@
 			<select id="projeto_id" name="projeto_id" class="select2" style="width: 100%;">
 				<option value="">Selecione ou crie um projeto</option>
 				@foreach ($projetos as $projeto)
-					<option value="{{ $projeto->id }}" {{ old('projeto_id') == $projeto->id ? 'selected' : '' }}>
+					<option value="{{ $projeto->id }}" {{ old('projeto_id', $projetoIdSelecionado) == $projeto->id ? 'selected' : '' }}>
 						{{ $projeto->nome }}
 					</option>
 				@endforeach

@@ -11,5 +11,5 @@
 	</header>
 
 	@include('includes.projetos')
-	@include('includes.listas')
+	@include('includes.listas', ['listas' => $listas])
 @endsection
