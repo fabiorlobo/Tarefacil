@@ -137,7 +137,6 @@
 		}
 
 		@include media($tablet, min) {
-			border-bottom: 1px solid transparent;
 			max-height: 0;
 			overflow: hidden;
 			transition: border .6s ease-out .3s, margin .3s ease-out, max-height .6s ease-out, padding .3s ease-out;
@@ -146,7 +145,6 @@
 
 		.main-menu__item--submenu-active & {
 			@include media($tablet, min) {
-				border-bottom-color: var(--lt-color-border-primary);
 				margin-top: $colMargin - $colMarginQuarter;
 				max-height: 100vh;
 				overflow: auto;

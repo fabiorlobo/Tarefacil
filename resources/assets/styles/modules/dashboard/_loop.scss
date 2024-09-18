@@ -1,0 +1,37 @@
+.loop {
+	display: grid;
+	gap: $colMarginHalf;
+
+	&__item {
+		&__description {
+			margin-top: $colMarginHalf;
+
+			> :first-child {
+				margin-top: 0;
+			}
+		
+			> :last-child {
+				margin-bottom: 0;
+			}
+		}
+
+		&__info {
+			font-style: italic;
+			margin-top: $colMarginHalf;
+			@include fontZero;
+
+			&__data {
+				@include fontRead(14);
+
+				&+& {
+					padding-left: 3.5px;
+					
+					&::before {
+						content: "\2022";
+						padding-right: 3.5px;
+					}
+				}
+			}
+		}
+	}
+}

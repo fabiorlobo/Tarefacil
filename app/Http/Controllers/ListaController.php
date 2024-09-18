@@ -12,8 +12,15 @@ class ListaController extends Controller
 	public function index()
 	{
 		$userId = auth()->id();
-		$listas = Lista::where('user_id', $userId)->get();
+		$listas = Lista::where('user_id', $userId)->with('tarefas')->get();
 		return view('painel.listas.index', compact('listas'));
+	}
+
+	public function getUserLists()
+	{
+		$userId = auth()->id();
+		$listas = Lista::where('user_id', $userId)->with('tarefas')->get();
+		return $listas;
 	}
 
 	public function create()

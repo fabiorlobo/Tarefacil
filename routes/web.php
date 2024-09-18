@@ -16,7 +16,6 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
 	return view('home');
 })->name('home');
-;
 
 // Login
 Route::get('entrar', [LoginController::class, 'showLoginForm'])->name('login');
@@ -28,16 +27,27 @@ Route::post('logout', [LogoutController::class, 'logout'])->name('logout');
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
-// Painel
-Route::get('/painel', [ProjetoController::class, 'index'])->middleware('auth')->name('painel');
+// Painel e Projetos
+Route::prefix('painel')->middleware('auth')->group(function () {
+	Route::get('/', [ProjetoController::class, 'painel'])->name('painel');
 
-// Conta do usuário
-Route::get('painel/conta', [AccountController::class, 'show'])->name('account.show')->middleware('auth');
-Route::post('painel/conta', [AccountController::class, 'update'])->name('account.update')->middleware('auth');
-Route::post('painel/conta/excluir', [AccountController::class, 'destroy'])->name('account.destroy')->middleware('auth');
-Route::middleware('auth')->group(function () {
-	Route::get('/painel/usuarios', [UserController::class, 'index'])->name('usuarios.index');
-	Route::delete('/painel/usuarios/{id}', [UserController::class, 'destroy'])->name('usuarios.destroy');
+	// Projetos
+	Route::get('projetos/criar', [ProjetoController::class, 'create'])->name('projetos.create');
+	Route::post('projetos', [ProjetoController::class, 'store'])->name('projetos.store');
+	Route::get('projetos/{id}', [ProjetoController::class, 'show'])->name('projetos.show');
+	Route::get('projetos/{id}/editar', [ProjetoController::class, 'edit'])->name('projetos.edit');
+	Route::put('projetos/{id}', [ProjetoController::class, 'update'])->name('projetos.update');
+	Route::delete('projetos/{id}', [ProjetoController::class, 'destroy'])->name('projetos.destroy');
+	Route::get('projetos', [ProjetoController::class, 'index'])->name('projetos.index');
+
+	// Conta do usuário
+	Route::get('conta', [AccountController::class, 'show'])->name('account.show');
+	Route::post('conta', [AccountController::class, 'update'])->name('account.update');
+	Route::post('conta/excluir', [AccountController::class, 'destroy'])->name('account.destroy');
+
+	// Usuários (para o super admin)
+	Route::get('usuarios', [UserController::class, 'index'])->name('usuarios.index');
+	Route::delete('usuarios/{id}', [UserController::class, 'destroy'])->name('usuarios.destroy');
 });
 
 // Listas
@@ -50,7 +60,6 @@ Route::put('/painel/listas/{id}', [ListaController::class, 'update'])->name('lis
 Route::delete('/painel/listas/{id}', [ListaController::class, 'destroy'])->name('listas.destroy');
 
 // Tarefas
-//Route::get('/painel/tarefas/criar', [TarefaController::class, 'create'])->name('tarefas.create');
 Route::get('/painel/tarefas/criar/{lista?}', [TarefaController::class, 'create'])->name('tarefas.create');
 Route::post('/painel/tarefas', [TarefaController::class, 'store'])->name('tarefas.store');
 Route::get('/painel/tarefas/{id}/editar', [TarefaController::class, 'edit'])->name('tarefas.edit');
@@ -60,17 +69,6 @@ Route::post('/painel/tarefas/{id}/start', [TarefaController::class, 'startTracke
 Route::post('/painel/tarefas/{id}/stop', [TarefaController::class, 'stopTracker'])->name('tarefas.stop');
 Route::get('/painel/tarefas/{id}/check-status', [TarefaController::class, 'checkStatus']);
 Route::post('/painel/tarefas/{id}/concluir', [TarefaController::class, 'concluir'])->name('tarefas.concluir');
-
-// Projetos
-Route::prefix('painel')->middleware('auth')->group(function () {
-	Route::get('projetos/criar', [ProjetoController::class, 'create'])->name('projetos.create');
-	Route::post('projetos', [ProjetoController::class, 'store'])->name('projetos.store');
-	Route::get('projetos/{id}', [ProjetoController::class, 'show'])->name('projetos.show');
-	Route::get('projetos/{id}/editar', [ProjetoController::class, 'edit'])->name('projetos.edit');
-	Route::put('projetos/{id}', [ProjetoController::class, 'update'])->name('projetos.update');
-	Route::delete('projetos/{id}', [ProjetoController::class, 'destroy'])->name('projetos.destroy');
-	Route::get('projetos', [ProjetoController::class, 'index'])->name('projetos.index');
-});
 
 // Rotas dinâmicas para páginas estáticas
 Route::get('/{page}', [PageController::class, 'show'])->where('page', '^(?!posts).*');

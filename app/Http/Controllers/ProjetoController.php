@@ -3,17 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Projeto;
+use App\Models\Lista;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class ProjetoController extends Controller
 {
-	public function index()
+	public function painel()
 	{
 		$userId = auth()->id();
 		$projetos = Projeto::where('user_id', $userId)->with(['listas.tarefas'])->get();
+		$listas = Lista::where('user_id', $userId)->with('tarefas')->get();
 
-		return view('painel', compact('projetos'));
+		return view('painel', compact('projetos', 'listas'));
+	}
+
+	public function index()
+	{
+		$userId = auth()->id();
+		$projetos = Projeto::where('user_id', $userId)->get();
+
+		return view('painel.projetos.index', compact('projetos'));
 	}
 
 	public function create()

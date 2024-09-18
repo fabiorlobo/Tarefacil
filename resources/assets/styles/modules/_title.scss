@@ -1,0 +1,50 @@
+.title {
+	display: block;
+	margin: 0;
+	@include fontTitle;
+
+	&--smaller {
+		@include fontRead(16);
+	}
+
+	&--small {
+		@include fontRead(20);
+	}
+
+	&--medium {
+		@include media($smartphone, max) {
+			@include fontRead(28);
+		}
+		
+		@include media($smartphone, min) {
+			@include fontRead(36);
+		}
+	}
+
+	&--big {
+		@include media($tablet, max) {
+			@include fontRead(36);
+		}
+		
+		@include media($tablet, min) {
+			@include fontRead(56);
+		}
+	}
+
+	&--section {
+		margin-bottom: $colMarginHalf;
+		
+		.heading & {
+			border-bottom: 1px solid var(--lt-color-border-primary);
+			padding-bottom: $colMarginHalf;
+		
+			@include media($tablet, min) {
+				min-height: calc(30px + #{$colMarginHalf});
+			}
+		}
+	}
+
+	a {
+		display: table;
+	}
+}
