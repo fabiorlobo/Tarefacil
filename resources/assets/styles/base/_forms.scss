@@ -79,6 +79,31 @@ select {
 	text-transform: none;
 }
 
+.select2-container {
+	max-width: 100%;
+	min-width: 100%;
+
+	.select2-selection {
+		&.select2-selection--single {
+			border-radius: 3px;
+			border: 1px solid var(--lt-color-border-secondary);
+			height: 45px;
+	
+			.select2-selection__rendered {
+				line-height: 45px;
+			}
+		
+			.select2-selection__arrow {
+				height: 44px;
+
+				b {
+					border-top-color: var(--lt-color-text-primary);
+				}
+			}
+		}
+	}
+}
+
 textarea {
 	height: 90px;
 	overflow: auto;

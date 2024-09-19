@@ -21,9 +21,9 @@ class TarefaController extends Controller
 		$validator = Validator::make($request->all(), [
 			'descricao' => 'required|string|min:3|max:1000',
 			'lista_id' => 'required',
-			'tempo_previsto_horas' => 'nullable|integer|min:0|max:23',
+			'tempo_previsto_horas' => 'nullable|integer|min:0',
 			'tempo_previsto_minutos' => 'nullable|integer|min:0|max:59',
-			'tempo_utilizado_horas' => 'nullable|integer|min:0|max:23',
+			'tempo_utilizado_horas' => 'nullable|integer|min:0',
 			'tempo_utilizado_minutos' => 'nullable|integer|min:0|max:59',
 		]);
 	
@@ -62,9 +62,9 @@ class TarefaController extends Controller
 		$validator = Validator::make($request->all(), [
 			'descricao' => 'required|string|min:3|max:1000',
 			'lista_id' => 'required|integer',
-			'tempo_previsto_horas' => 'nullable|integer|min:0|max:23',
+			'tempo_previsto_horas' => 'nullable|integer|min:0',
 			'tempo_previsto_minutos' => 'nullable|integer|min:0|max:59',
-			'tempo_utilizado_horas' => 'nullable|integer|min:0|max:23',
+			'tempo_utilizado_horas' => 'nullable|integer|min:0',
 			'tempo_utilizado_minutos' => 'nullable|integer|min:0|max:59',
 		]);
 

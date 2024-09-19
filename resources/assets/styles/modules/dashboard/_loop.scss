@@ -3,8 +3,43 @@
 	gap: $colMarginHalf;
 
 	&__item {
+		position: relative;
+
+		&--task.box {
+			padding-left: 45px;
+		}
+
+		&__checkbox {
+			appearance: none;
+			-moz-appearance: none;
+			-ms-appearance: none;
+			-webkit-appearance: none;
+			border-radius: 15px;
+			cursor: pointer;
+			height: 15px;
+			left: $colMarginHalf;
+			margin: 0;
+			padding: 0;
+			position: absolute;
+			text-align: center;
+			top: calc($colMarginHalf + 4px);
+			width: 15px;
+	
+			&:checked {
+				background-color: transparent;
+				background-image: url("../images/icons/tasks.svg");
+				background-position: 50% 50%;
+				background-repeat: no-repeat;
+				border-color: transparent;
+			}
+		}
+
 		&__description {
-			margin-top: $colMarginHalf;
+			@include fontRead(16, 8);
+
+			.title+& {
+				margin-top: $colMarginHalf;
+			}
 
 			> :first-child {
 				margin-top: 0;

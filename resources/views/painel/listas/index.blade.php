@@ -3,21 +3,23 @@
 @section('title', 'Listas')
 
 @section('content')
-	<h2>Listas</h2>
+	<header class="heading">
+		<h1 class="title title--section title--small">Minhas listas de tarefas</h1>
+
+		<div class="actions">
+			<a class="actions__button" href="{{ route('listas.create') }}">
+				<?php \App\Helpers\SvgHelper::render(['name' => 'more', 'class' => 'center']); ?>
+				<span class="actions__button__text">Nova lista</span>
+			</a>
+		</div>
+	</header>
+
 	@if (session('status'))
-		<div>{{ session('status') }}</div>
+		<div class="alert alert--success">
+			<?php \App\Helpers\SvgHelper::render(['name' => 'tasks', 'class' => 'center']); ?>
+			<span class="alert__text">{{ session('status') }}</span>
+		</div>
 	@endif
-	<a href="{{ route('listas.create') }}">Criar Nova Lista</a>
-	<ul>
-		@foreach ($listas as $lista)
-			<li>
-				<a href="{{ route('listas.show', $lista->id) }}">{{ $lista->nome }}</a>
-				<form method="POST" action="{{ route('listas.destroy', $lista->id) }}" style="display:inline;">
-					@csrf
-					@method('DELETE')
-					<button type="submit" onclick="return confirm('Tem certeza que deseja excluir esta lista?')">Excluir</button>
-				</form>
-			</li>
-		@endforeach
-	</ul>
+
+	@include('includes.listas')
 @endsection

@@ -3,10 +3,15 @@
 @section('title', 'Gerenciar Usuários')
 
 @section('content')
-	<h1>Gerenciar Usuários</h1>
+	<header class="heading">
+		<h1 class="title title--section title--small">Gerenciar usuários</h1>
+	</header>
 
 	@if (session('status'))
-		<div class="alert alert-success">{{ session('status') }}</div>
+		<div class="alert alert--success">
+			<?php \App\Helpers\SvgHelper::render(['name' => 'tasks', 'class' => 'center']); ?>
+			<span class="alert__text">{{ session('status') }}</span>
+		</div>
 	@endif
 
 	<table>

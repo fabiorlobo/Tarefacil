@@ -58,6 +58,8 @@ Route::get('/painel/listas/{id}', [ListaController::class, 'show'])->name('lista
 Route::get('/painel/listas/{id}/editar', [ListaController::class, 'edit'])->name('listas.edit');
 Route::put('/painel/listas/{id}', [ListaController::class, 'update'])->name('listas.update');
 Route::delete('/painel/listas/{id}', [ListaController::class, 'destroy'])->name('listas.destroy');
+Route::get('/painel/listas/{id}/resumo', [ListaController::class, 'resumo']);
+Route::get('/painel/listas/{id}/download-report', [ListaController::class, 'downloadReport'])->name('listas.downloadReport');
 
 // Tarefas
 Route::get('/painel/tarefas/criar/{lista?}', [TarefaController::class, 'create'])->name('tarefas.create');

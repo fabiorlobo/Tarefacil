@@ -3,6 +3,7 @@
 	color: var(--lt-color-text-primary);
 	display: flex;
 	margin-top: $colMarginHalf;
+	width: 100%;
 	@include fontRead(14);
 
 	&--form {

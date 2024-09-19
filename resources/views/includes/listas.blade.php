@@ -27,6 +27,8 @@
 							$totalPrevistoMinutos = $tempoPrevistoHoras * 60 + $tempoPrevistoMinutos;
 							$tempoRestanteMinutos = $totalPrevistoMinutos - $totalUtilizadoMinutos;
 
+							$tempoExcedidoMinutos = $totalUtilizadoMinutos > $totalPrevistoMinutos ? $totalUtilizadoMinutos - $totalPrevistoMinutos : 0;
+
 							$tarefasPendentes = $lista->tarefas->where('status', false)->count();
 
 							$mostrarInfo = $totalUtilizadoMinutos > 0 || ($totalPrevistoMinutos > 0 && $tempoRestanteMinutos > 0) || $tarefasPendentes > 0;
@@ -40,6 +42,10 @@
 
 								@if($totalPrevistoMinutos > 0 && $tempoRestanteMinutos > 0)
 									<span class="loop__item__info__data">(restam {{ intdiv($tempoRestanteMinutos, 60) }} horas e {{ $tempoRestanteMinutos % 60 }} minutos)</span>
+								@endif
+
+								@if($tempoExcedidoMinutos > 0)
+									<span class="loop__item__info__data">({{ intdiv($tempoExcedidoMinutos, 60) }} horas e {{ $tempoExcedidoMinutos % 60 }} minutos excedidos)</span>
 								@endif
 
 								@if($tarefasPendentes > 0)

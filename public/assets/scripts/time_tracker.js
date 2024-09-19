@@ -1,6 +1,4 @@
 /******/ (() => { // webpackBootstrap
-console.log('time_tracker.js carregado');
-
 let timers = {};
 let isTracking = false;
 let currentTarefaId = null;
@@ -33,7 +31,7 @@ function startTracker(tarefaId) {
 								console.log('Botões encontrados:', startBtn, stopBtn);
 								if (startBtn && stopBtn) {
 										startBtn.style.display = 'none';
-										stopBtn.style.display = 'inline';
+										stopBtn.style.display = 'flex';
 								} else {
 										console.error(`Botões de iniciar/parar não encontrados para tarefa ${tarefaId}`);
 								}
@@ -99,7 +97,7 @@ function updateTaskUI(tarefaId, horas, minutos) {
     const timerElement = document.querySelector(`#timer-${tarefaId}`);
 
     if (startBtn && stopBtn) {
-        startBtn.style.display = 'inline';
+        startBtn.style.display = 'flex';
         stopBtn.style.display = 'none';
     }
 
@@ -158,7 +156,7 @@ window.addEventListener('load', () => {
 										const stopBtn = document.querySelector(`#stop-btn-${tarefaId}`);
 										if (startBtn && stopBtn) {
 												startBtn.style.display = 'none';
-												stopBtn.style.display = 'inline';
+												stopBtn.style.display = 'flex';
 										}
 								}
 						});

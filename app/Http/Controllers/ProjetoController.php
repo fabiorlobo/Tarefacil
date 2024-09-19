@@ -42,9 +42,9 @@ class ProjetoController extends Controller
 			return redirect()->back()->withErrors($validator)->withInput();
 		}
 
-		Projeto::create(array_merge($request->all(), ['user_id' => auth()->id()]));
+    $projeto = Projeto::create(array_merge($request->all(), ['user_id' => auth()->id()]));
 
-		return redirect()->route('projetos.index')->with('status', 'Projeto criado com sucesso!');
+    return redirect()->route('projetos.show', $projeto->id)->with('status', 'Projeto criado com sucesso!');
 	}
 
 	public function edit($id)
@@ -70,7 +70,7 @@ class ProjetoController extends Controller
 
 		$projeto->update($request->all());
 
-		return redirect()->route('projetos.index')->with('status', 'Projeto atualizado com sucesso!');
+		return redirect()->route('projetos.show', $projeto->id)->with('status', 'Projeto atualizado com sucesso!');
 	}
 
 	public function destroy($id)

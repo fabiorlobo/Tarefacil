@@ -3,4 +3,67 @@
 	border: 1px solid var(--lt-color-border-primary);
 	border-radius: 3px;
 	padding: $colMarginHalf;
+
+	&--summary {
+		padding: 0;
+		
+		@include media($phablet, max) {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+		}
+		
+		@include media($phablet, min) {
+			display: flex;
+		}
+
+		@include mediaMaxMin($laptop, $tablet) {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	&__item {
+		border-right: 1px solid var(--lt-color-border-primary);
+		padding: $colMarginHalf;
+		@include fontRead(14);
+
+		@include media($phablet, max) {
+			border-bottom: 1px solid var(--lt-color-border-primary);
+		}
+
+		@include mediaMaxMin($laptop, $tablet) {
+			border-bottom: 1px solid var(--lt-color-border-primary);
+		}
+
+		&:nth-child(2) {
+			@include media($phablet, max) {
+				border-right: 0;
+			}
+
+			@include mediaMaxMin($laptop, $tablet) {
+				border-right: 0;
+			}
+		}
+
+		&:nth-child(3),
+		&:nth-child(4),
+		&:nth-last-child(2):not(:nth-child(2)),
+		&:last-child {
+			@include media($phablet, max) {
+				border-bottom: 0;
+			}
+
+			@include mediaMaxMin($laptop, $tablet) {
+				border-bottom: 0;
+			}
+		}
+
+		&:last-child {
+			border-right: 0;
+		}
+
+		.title {
+			margin-bottom: 5px;
+		}
+	}
 }

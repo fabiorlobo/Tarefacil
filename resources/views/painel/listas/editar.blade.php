@@ -1,58 +1,35 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Editar Lista')
+@section('title', 'Editar lista')
 
 @section('content')
-	<h2>Editar Lista</h2>
-	<form method="POST" action="{{ route('listas.update', $lista->id) }}">
-		@csrf
-		@method('PUT')
-		<div>
-			<label for="nome">Nome:</label>
-			<input type="text" id="nome" name="nome" value="{{ old('nome', $lista->nome) }}" required>
-			@error('nome')
-				<div class="error">{{ $message }}</div>
-			@enderror
+	<header class="heading">
+		<h1 class="title title--section title--small">
+			@if (isset($lista->projeto) && $lista->projeto)
+				<a href="{{ route('projetos.show', $lista->projeto->id) }}">{{ $lista->projeto->nome }}</a> › 
+			@endif
+			Editar lista
+		</h1>
+
+		<div class="heading__text">
+			<p>Preencha os dados abaixo para editar sua lista de tarefas:</p>
 		</div>
-		<div>
-			<label for="descricao">Descrição:</label>
-			<textarea id="descricao" name="descricao">{{ old('descricao', $lista->descricao) }}</textarea>
-			@error('descricao')
-				<div class="error">{{ $message }}</div>
-			@enderror
+	</header>
+
+	@if (session('status'))
+		<div class="alert alert--success">
+			<?php \App\Helpers\SvgHelper::render(['name' => 'tasks', 'class' => 'center']); ?>
+			<span class="alert__text">{{ session('status') }}</span>
 		</div>
-		<div>
-			<label for="projeto_id">Projeto:</label>
-			<select id="projeto_id" name="projeto_id" class="select2" style="width: 100%;">
-				<option value="">Selecione ou crie um projeto</option>
-				@foreach ($projetos as $projeto)
-					<option value="{{ $projeto->id }}" {{ old('projeto_id', $lista->projeto_id) == $projeto->id ? 'selected' : '' }}>
-						{{ $projeto->nome }}
-					</option>
-				@endforeach
-			</select>
-			@error('projeto_id')
-				<div class="error">{{ $message }}</div>
-			@enderror
-		</div>
-		<div>
-			<label for="tempo_previsto_horas">Tempo Previsto (Horas):</label>
-			<input type="text" id="tempo_previsto_horas" name="tempo_previsto_horas"
-				value="{{ old('tempo_previsto_horas', $lista->tempo_previsto_horas) }}">
-			@error('tempo_previsto_horas')
-				<div class="error">{{ $message }}</div>
-			@enderror
-		</div>
-		<div>
-			<label for="tempo_previsto_minutos">Tempo Previsto (Minutos):</label>
-			<input type="text" id="tempo_previsto_minutos" name="tempo_previsto_minutos"
-				value="{{ old('tempo_previsto_minutos', $lista->tempo_previsto_minutos) }}">
-			@error('tempo_previsto_minutos')
-				<div class="error">{{ $message }}</div>
-			@enderror
-		</div>
-		<div>
-			<button type="submit">Atualizar Lista</button>
-		</div>
-	</form>
+	@endif
+
+	<section class="main__section">
+		@include('includes.form-listas', [
+			'action' => route('listas.update', $lista->id),
+			'isEdit' => true,
+			'buttonText' => 'Atualizar lista',
+			'lista' => $lista,
+			'projetoIdSelecionado' => old('projeto_id', $lista->projeto_id ?? '')
+		])
+	</section>
 @endsection
