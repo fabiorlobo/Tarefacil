@@ -14,29 +14,36 @@
 		</div>
 	@endif
 
-	<table>
-		<thead>
-			<tr>
-				<th>Nome</th>
-				<th>Email</th>
-				<th>Ações</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach ($users as $user)
-				<tr>
-					<td>{{ $user->name }}</td>
-					<td>{{ $user->email }}</td>
-					<td>
-						<form action="{{ route('usuarios.destroy', $user->id) }}" method="POST"
-							onsubmit="return confirm('Tem certeza que deseja excluir este usuário?');">
-							@csrf
-							@method('DELETE')
-							<button type="submit">Excluir</button>
-						</form>
-					</td>
-				</tr>
-			@endforeach
-		</tbody>
-	</table>
+	@if($users->count() > 0)
+		<section class="main__section main__section--separator">
+			<div class="loop">
+				@foreach ($users as $user)
+					@php
+						$projetosCount = $user->projetos->count();
+						$listasCount = $user->listas->count();
+					@endphp
+					<div class="loop__item box">
+						<h3 class="title title--smaller">
+							<a href="{{ route('usuarios.edit', $user->id) }}">{{ $user->name }}</a>
+						</h3>
+
+						<div class="loop__item__description">
+							<p>{{ $user->email }}</p>
+						</div>
+
+						@if($projetosCount > 0 || $listasCount > 0)
+							<div class="loop__item__info">
+								@if($projetosCount > 0)
+									<span class="loop__item__info__data">{{ $projetosCount }} projeto{{ $projetosCount > 1 ? 's' : '' }}</span>
+								@endif
+								@if($listasCount > 0)
+									<span class="loop__item__info__data">{{ $listasCount }} lista{{ $listasCount > 1 ? 's' : '' }}</span>
+								@endif
+							</div>
+						@endif
+					</div>
+				@endforeach
+			</div>
+		</section>
+	@endif
 @endsection

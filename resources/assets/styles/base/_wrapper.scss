@@ -7,7 +7,14 @@
 	position: relative;
 	width: 100%;
 	max-width: $siteMaxWidth;
-	padding: 0 $colMargin;
+
+	@include media($tablet, max) {
+		padding: 0 $colMarginHalf;
+	}
+
+	@include media($tablet, min) {
+		padding: 0 $colMargin;
+	}
 
 	&--content {
 		max-width: var(--lt-content-max-width);
@@ -15,46 +22,5 @@
 	
 	&--max {
 		max-width: 100%;
-	}
-
-	&--cols {
-		display: flex;
-
-		@include media($laptop, max) {
-			flex-wrap: wrap;
-			justify-content: center;
-		}
-
-		@include media($laptop, min) {
-			flex-wrap: nowrap;
-			justify-content: space-between;
-		}
-	}
-	
-	&__content {
-		margin-left: auto;
-		margin-right: auto;
-		max-width: var(--lt-content-max-width);
-	
-		@include media($laptop, max) {
-			width: 100%;
-		}
-	
-		@include media($laptop, min) {
-			width: calc(100% - #{$sidebarSize} - #{$colMargin});
-		}
-	}
-	
-	&__sidebar {
-		max-width: $sidebarSize;
-		width: 100%;
-	
-		@include media($laptop, max) {
-			margin-top: $colMargin;
-		}
-	
-		@include media($laptop, min) {
-			margin-left: $colMargin;
-		}
 	}
 }

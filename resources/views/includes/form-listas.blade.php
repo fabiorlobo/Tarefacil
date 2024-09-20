@@ -40,7 +40,7 @@
 			<label>Tempo reservado:</label>
 
 			<div class="form__fields">
-				<div class="form__field form__field--1-2 form__field--time">
+				<div class="form__field form__field--1-2 form__field--time form__field--time--small">
 					<input type="number" id="tempo_previsto_horas" name="tempo_previsto_horas" value="{{ old('tempo_previsto_horas', $lista->tempo_previsto_horas ?? '') }}">
 					<label for="tempo_previsto_horas">Horas</label>
 					@error('tempo_previsto_horas')
@@ -48,7 +48,7 @@
 					@enderror
 				</div>
 
-				<div class="form__field form__field--1-2 form__field--time">
+				<div class="form__field form__field--1-2 form__field--time form__field--time--small">
 					<input type="number" id="tempo_previsto_minutos" name="tempo_previsto_minutos" value="{{ old('tempo_previsto_minutos', $lista->tempo_previsto_minutos ?? '') }}" max="59">
 					<label for="tempo_previsto_minutos">Minutos</label>
 					@error('tempo_previsto_minutos')

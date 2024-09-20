@@ -22,21 +22,44 @@
 			@include mediaMaxMin($desktop, $tablet) {
 				width: 100%;
 			}
+
+			&--small {
+				width: calc(50% - calc(#{$colMarginHalf} / 2));
+			}
 		}
 
 		&--time {
 			column-gap: $colMarginThird;
 			display: flex;
-			flex-wrap: wrap;
+
+			@include media($phablet, max) {
+				width: auto;
+			}
+
+			@include mediaMaxMin($desktop, $tablet) {
+				width: 100%;
+			}
+
+			&--small {
+				width: calc(50% - calc(#{$colMarginHalf} / 2));
+			}
 
 			input {
+				flex-grow: 1;
 				width: 50%;
 			}
 
 			label {
 				flex-shrink: 0;
 				margin: 12.5px 0 0 0;
+				width: calc(50% - #{$colMarginHalf});
 			}
 		}
+	}
+
+	&__disclaimer {
+		font-style: italic;
+		width: 100%;
+		@include fontRead(14);
 	}
 }

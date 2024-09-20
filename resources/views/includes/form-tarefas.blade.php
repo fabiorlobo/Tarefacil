@@ -28,7 +28,7 @@
 			@enderror
 		</div>
 
-		<div class="form__field form__field--1-2">
+		<div class="form__field form__field--1-2 form__field--1-2--small">
 			<label>Tempo previsto:</label>
 
 			<div class="form__fields">
@@ -50,7 +50,7 @@
 			</div>
 		</div>
 
-		<div class="form__field form__field--1-2">
+		<div class="form__field form__field--1-2 form__field--1-2--small">
 			<label>Tempo utilizado:</label>
 
 			<div class="form__fields">

@@ -4,7 +4,12 @@
 
 @section('content')
 	<header class="heading">
-		<h1 class="title title--section title--small">Editar tarefa</h1>
+		<h1 class="title title--section title--small">
+			@if (isset($tarefa->lista) && $tarefa->lista)
+				<a href="{{ route('listas.show', $tarefa->lista->id) }}">{{ $tarefa->lista->nome }}</a> › 
+			@endif
+			Editar tarefa
+		</h1>
 
 		<div class="heading__text">
 			<p>Preencha os dados abaixo para editar sua tarefa:</p>

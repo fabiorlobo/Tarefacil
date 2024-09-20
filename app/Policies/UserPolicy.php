@@ -11,6 +11,11 @@ class UserPolicy
 		return $user->is_super_admin;
 	}
 
+	public function update(User $user)
+	{
+		return $user->is_super_admin;
+	}
+
 	public function delete(User $user)
 	{
 		return $user->is_super_admin;

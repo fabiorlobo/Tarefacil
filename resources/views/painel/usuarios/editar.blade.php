@@ -1,13 +1,13 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Minha conta')
+@section('title', 'Editar Usuário')
 
 @section('content')
 	<header class="heading">
-		<h1 class="title title--section title--small">Minha conta</h1>
+		<h1 class="title title--section title--small">Editar usuário</h1>
 
 		<div class="heading__text">
-			<p>Aqui estão seus dados de cadastro:</p>
+			<p>Aqui estão os dados do usuário selecionado:</p>
 		</div>
 	</header>
 
@@ -17,24 +17,13 @@
 			<span class="alert__text">{{ session('status') }}</span>
 		</div>
 	@endif
-	
-	@if ($errors->any())
-		<div class="alert alert--error">
-			<ul>
-				@foreach ($errors->all() as $error)
-					<li>{{ $error }}</li>
-				@endforeach
-			</ul>
-		</div>
-	@endif
 
 	<section class="main__section">
 		@include('includes.form-cadastro', [
-			'action' => route('account.update'),
+			'action' => route('usuarios.update', $user->id),
 			'isEdit' => true,
-			'isSuperAdmin' => false,
-			'buttonText' => 'Atualizar conta'
+			'isSuperAdmin' => true,
+			'buttonText' => 'Atualizar cadastro'
 		])
 	</section>
-	
 @endsection

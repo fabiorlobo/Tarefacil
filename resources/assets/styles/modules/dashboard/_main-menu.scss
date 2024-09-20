@@ -8,6 +8,7 @@
 		height: 60px;
 		justify-content: stretch;
 		left: 0;
+		min-width: $siteMinWidth;
 		position: fixed;
 		right: 0;
 		z-index: 10;

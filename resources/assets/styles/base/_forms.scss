@@ -90,6 +90,7 @@ select {
 			height: 45px;
 	
 			.select2-selection__rendered {
+				color: var(--lt-color-text-primary);
 				line-height: 45px;
 			}
 		
@@ -97,7 +98,7 @@ select {
 				height: 44px;
 
 				b {
-					border-top-color: var(--lt-color-text-primary);
+					border-top-color: var(--lt-color-border-secondary);
 				}
 			}
 		}
