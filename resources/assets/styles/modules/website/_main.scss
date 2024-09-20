@@ -1,0 +1,31 @@
+.main {
+	@include fontRead($fontSizeBase, 8);
+
+	&__section {
+		&:not(.featured:first-child):not(.main__section--content) {
+			border-top: 1px solid var(--lt-color-border-primary);
+		}
+
+		@include media($tablet, max) {
+			margin-bottom: $colMargin;
+			padding-top: $colMargin;
+
+			&:not(:first-child) {
+				margin-top: $colMargin;
+			}
+		}
+	
+		@include media($tablet, min) {
+			margin-bottom: $colMargin2x;
+			padding-top: $colMargin2x;
+
+			&:not(:first-child) {
+				margin-top: $colMargin2x;
+			}
+		}
+
+		&--content {
+			padding-top: $colMargin;
+		}
+	}
+}

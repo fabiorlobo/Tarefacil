@@ -2,4 +2,12 @@
 	width: 100%;
 	clear: both;
 	position: relative;
+
+	&--total {
+		left: 50%;
+		overflow: hidden;
+		position: relative;
+		transform: translateX(-50%);
+		width: 100vw;
+	}
 }

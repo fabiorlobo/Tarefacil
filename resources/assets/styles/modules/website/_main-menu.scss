@@ -1,0 +1,24 @@
+.main-menu {
+	&__list {
+		align-items: center;
+		display: flex;
+		@include fontTitle;
+		@include simpleList(0, 0);
+
+		@include media($tablet, max) {
+			gap: $colMarginHalf;
+		}
+	
+		@include media($tablet, min) {
+			gap: $colMargin;
+		}
+
+		a:not(.button) {
+			color: var(--lt-color-text-primary);
+
+			&:hover {
+				color: var(--lt-color-primary);
+			}
+		}
+	}
+}

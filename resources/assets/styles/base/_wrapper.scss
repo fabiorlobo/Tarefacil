@@ -15,10 +15,6 @@
 	@include media($tablet, min) {
 		padding: 0 $colMargin;
 	}
-
-	&--content {
-		max-width: var(--lt-content-max-width);
-	}
 	
 	&--max {
 		max-width: 100%;

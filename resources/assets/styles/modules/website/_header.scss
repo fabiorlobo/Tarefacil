@@ -1,0 +1,20 @@
+.header {
+	h1 {
+		margin: 0;
+	}
+
+	&__bar {
+		align-items: center;
+		border-bottom: 1px solid var(--lt-color-border-primary);
+		display: flex;
+		justify-content: space-between;
+
+		@include media($tablet, max) {
+			padding: $colMarginHalf 0;
+		}
+	
+		@include media($tablet, min) {
+			padding: $colMargin 0;
+		}
+	}
+}

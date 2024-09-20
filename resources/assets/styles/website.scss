@@ -1,0 +1,25 @@
+/*
+	CSS with gulp compass and BEM methodology.
+
+	Do not edit CSS files!
+*/
+
+/* * * * * * * * * * * * * *
+	BASE
+* * * * * * * * * * * * * */
+@import "base/_variables";
+@import "base/_mixins";
+
+/* * * * * * * * * * * * * *
+	STRUCTURE
+* * * * * * * * * * * * * */
+@import "modules/website/_header";
+@import "modules/website/_main-menu";
+@import "modules/website/_main";
+@import "modules/website/_featured";
+@import "modules/website/_screen";
+@import "modules/website/_singular";
+
+/* * * * * * * * * * * * * *
+	PATTERNS
+* * * * * * * * * * * * * */

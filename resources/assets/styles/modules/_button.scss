@@ -25,6 +25,7 @@
 
 	&:hover {
 		background: var(--lt-color-secondary);
+		color: var(--lt-color-bg-primary);
 	}
 
 	&:disabled {
@@ -33,5 +34,10 @@
 
 	&--max {
 		max-width: 100%;
+	}
+
+	&--small {
+		padding: 5px $colMarginHalf;
+		width: auto;
 	}
 }

@@ -1,0 +1,20 @@
+.featured {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: $colMargin;
+	justify-content: center;
+	text-align: center;
+
+	@include media($tablet, max) {
+		min-height: calc(600px - #{$colMargin * 2});
+	}
+
+	@include media($tablet, min) {
+		min-height: calc(600px - #{$colMargin2x * 2});
+	}
+
+	p {
+		margin: 0;
+	}
+}

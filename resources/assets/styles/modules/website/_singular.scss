@@ -1,0 +1,55 @@
+.singular {
+	clear: both;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: var(--lt-content-max-width);
+	position: relative;
+	width: 100%;
+
+	&__content {
+		margin-top: $colMargin;
+		@include fontRead($fontSizeBase, $lineHeightTextSum);
+
+		p {
+			margin-bottom: $colMargin;
+			margin-top: $colMargin;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			clear: both;
+			margin-top: 0;
+			padding-top: $colMargin;
+			@include fontTitle;
+		
+			&+* {
+				margin-top: $colMargin;
+			}
+		}
+		
+		h1,
+		h2 {
+			@include fontRead(24);
+		}
+		
+		h3 {
+			@include fontRead(20);
+		}
+		
+		h4 {
+			@include fontRead(16);
+		}
+
+		> :first-child {
+			margin-top: 0;
+		}
+	
+		> :last-child {
+			margin-bottom: 0;
+		}
+	}
+}

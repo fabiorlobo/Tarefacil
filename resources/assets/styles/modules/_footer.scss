@@ -1,20 +1,35 @@
 .footer {
-	border-top: 1px solid var(--lt-color-border-primary);
 	color: var(--lt-color-secondary);
 	margin-top: $colMargin;
 	padding-top: $colMargin;
 	@include fontZero;
 
 	&--sidebar {
+		border-top: 1px solid var(--lt-color-border-primary);
+		padding-bottom: $colMargin;
+
 		@include media($tablet, max) {
 			display: none
 		}
 	}
 
-	&--end {
-		@include media($tablet, min) {
-			display: none
+	.template-website &--end.wrapper {
+		padding-bottom: $colMargin;
+	}
+
+	.template-dashboard &--end.wrapper {
+		@include media($tablet, max) {
+			padding-bottom: 60px;
 		}
+
+		@include media($tablet, min) {
+			display: none;
+		}
+	}
+
+	&__bar {
+		border-top: 1px solid var(--lt-color-border-primary);
+		padding-top: $colMargin;
 	}
 
 	&__links {
@@ -43,7 +58,7 @@
 
 	&__copyright {
 		display: block;
-		margin: $colMarginQuarter 0 $colMarginHalf 0;
+		margin: $colMarginQuarter 0 0 0;
 		@include fontRead($fontSizeSmall);
 	}
 }
