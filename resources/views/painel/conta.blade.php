@@ -19,10 +19,11 @@
 	@endif
 	
 	@if ($errors->any())
-		<div class="alert alert--error">
-			<ul>
+		<div class="alert alert--warning">
+			<?php \App\Helpers\SvgHelper::render(['name' => 'warning', 'class' => 'center']); ?>
+			<ul class="alert__text alert__text--list">
 				@foreach ($errors->all() as $error)
-					<li>{{ $error }}</li>
+					<li class="alert__text__item">{{ $error }}</li>
 				@endforeach
 			</ul>
 		</div>
@@ -32,6 +33,7 @@
 		@include('includes.form-cadastro', [
 			'action' => route('account.update'),
 			'isEdit' => true,
+			'isCreate' => false,
 			'isSuperAdmin' => false,
 			'buttonText' => 'Atualizar conta'
 		])

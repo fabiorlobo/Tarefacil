@@ -22,6 +22,7 @@
 		@include('includes.form-cadastro', [
 			'action' => route('usuarios.update', $user->id),
 			'isEdit' => true,
+			'isCreate' => false,
 			'isSuperAdmin' => true,
 			'buttonText' => 'Atualizar cadastro'
 		])

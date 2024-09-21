@@ -55,6 +55,17 @@
 				width: calc(50% - #{$colMarginHalf});
 			}
 		}
+
+		&--checkbox {
+			align-items: center;
+			display: flex;
+			gap: 5px;
+
+			label {
+				margin: 0;
+				@include fontText;
+			}
+		}
 	}
 
 	&__disclaimer {

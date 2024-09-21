@@ -1,58 +1,30 @@
 @extends('layouts.website')
 
-@section('title', 'Cadastro')
+@section('title', 'Crie sua conta')
 
 @section('content')
-	<h2>Cadastro</h2>
-	@if ($errors->any())
-		<div class="errors">
-			<ul>
-				@foreach ($errors->all() as $error)
-					<li>{{ $error }}</li>
-				@endforeach
-			</ul>
+	<section class="main__section main__section--content">
+		<div class="singular singular--form">
+			<h1 class="title title--medium">Crie sua conta</h1>
+
+			@if ($errors->any())
+				<div class="alert alert--warning">
+					<?php \App\Helpers\SvgHelper::render(['name' => 'warning', 'class' => 'center']); ?>
+					<ul class="alert__text alert__text--list">
+						@foreach ($errors->all() as $error)
+							<li class="alert__text__item">{{ $error }}</li>
+						@endforeach
+					</ul>
+				</div>
+			@endif
+
+			@include('includes.form-cadastro', [
+				'action' => route('register'),
+				'isEdit' => false,
+				'isCreate' => true,
+				'isSuperAdmin' => false,
+				'buttonText' => 'Cadastrar'
+			])
 		</div>
-	@endif
-	<form method="POST" action="{{ route('register') }}">
-		@csrf
-		<div>
-			<label for="name">Nome Completo:</label>
-			<input type="text" id="name" name="name" required value="{{ old('name') }}">
-			@error('name')
-				<div class="error">{{ $message }}</div>
-			@enderror
-		</div>
-		<div>
-			<label for="email">Email:</label>
-			<input type="email" id="email" name="email" required value="{{ old('email') }}">
-			@error('email')
-				<div class="error">{{ $message }}</div>
-			@enderror
-		</div>
-		<div>
-			<label for="password">Senha:</label>
-			<input type="password" id="password" name="password" required>
-			@error('password')
-				<div class="error">{{ $message }}</div>
-			@enderror
-		</div>
-		<div>
-			<label for="password_confirmation">Confirmar Senha:</label>
-			<input type="password" id="password_confirmation" name="password_confirmation" required>
-			@error('password_confirmation')
-				<div class="error">{{ $message }}</div>
-			@enderror
-		</div>
-		<div>
-			<input type="checkbox" id="terms" name="terms" required>
-			<label for="terms">Concordo com os termos de serviço e política de privacidade</label>
-			@error('terms')
-				<div class="error">{{ $message }}</div>
-			@enderror
-		</div>
-		<div>
-			<button type="submit">Cadastrar</button>
-		</div>
-	</form>
-	<a href="{{ url('auth/google') }}">Cadastrar com Google</a>
+	</section>
 @endsection

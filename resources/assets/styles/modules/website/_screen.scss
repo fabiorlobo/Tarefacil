@@ -31,11 +31,6 @@
 	}
 
 	&__img {
-		background: var(--lt-color-bg-secondary);
-		border-radius: 3px;
-		border: 1px solid var(--lt-color-border-primary);
-		padding: $colMarginHalf;
-
 		@include media($tablet, min) {
 			width: 50vw;
 		}

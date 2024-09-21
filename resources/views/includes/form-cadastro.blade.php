@@ -1,4 +1,4 @@
-<form class="form" method="POST" action="{{ $action }}">
+<form class="form @if($isCreate) singular__content @endif" method="POST" action="{{ $action }}">
 	@csrf
 	@if ($isEdit)
 		@method('PUT')
@@ -22,24 +22,52 @@
 		</div>
 
 		<div class="form__field form__field--1-2">
-			<label for="password">Nova senha*:</label>
-			<input type="password" id="password" name="password">
+			<label for="password">
+				@if ($isCreate)
+					Senha:
+				@else
+					Nova senha*:
+				@endif
+			</label>
+			<input type="password" id="password" name="password" @if($isCreate) required @endif>
 			@error('password')
 				<span class="alert alert--form">{{ $message }}</span>
 			@enderror
 		</div>
 
 		<div class="form__field form__field--1-2">
-			<label for="password_confirmation">Confirmar nova senha*:</label>
-			<input type="password" id="password_confirmation" name="password_confirmation">
+			<label for="password_confirmation">
+				@if ($isCreate)
+					Confirmar senha:
+				@else
+					Confirmar nova senha*:
+				@endif
+			</label>
+			<input type="password" id="password_confirmation" name="password_confirmation" @if($isCreate) required @endif>
 			@error('password_confirmation')
 				<span class="alert alert--form">{{ $message }}</span>
 			@enderror
 		</div>
 
-		<span class="form__disclaimer">*Deixe em branco para manter a senha atual.</span>
+		@if ($isCreate)
+			<div class="form__field form__field--1-1 form__field--checkbox">
+				<input type="checkbox" id="terms" name="terms" required>
+				<label for="terms">Concordo com os termos de serviço e política de privacidade</label>
+				@error('terms')
+					<span class="alert alert--form">{{ $message }}</span>
+				@enderror
+			</div>
+		@endif
+
+		@if ($isEdit || $isSuperAdmin)
+			<span class="form__disclaimer">*Deixe em branco para manter a senha atual.</span>
+		@endif
 
 		<button class="form__button button button--max" type="submit">{{ $buttonText }}</button>
+
+		@if ($isCreate)
+			<a class="form__button button button--max button--google" href="{{ url('auth/google') }}">Cadastrar com Google</a>
+		@endif
 	</fieldset>
 </form>
 

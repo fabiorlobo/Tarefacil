@@ -12,6 +12,7 @@
 	}
 
 	.icon {
+		border-radius: 3px 0 0 3px;
 		flex-shrink: 0;
 		height: auto;
 		width: 30px;
@@ -23,7 +24,10 @@
 
 	&--success .icon {
 		background: var(--lt-color-primary);
-		border-radius: 3px 0 0 3px;
+	}
+
+	&--warning .icon {
+		background: var(--lt-color-warning);
 	}
 
 	&__text {
@@ -33,5 +37,9 @@
 		border-radius: 0 3px 3px 0;
 		flex-grow: 1;
 		padding: 5px $colMarginThird;
+
+		&--list {
+			@include simpleList(0, 5px $colMarginThird);
+		}
 	}
 }

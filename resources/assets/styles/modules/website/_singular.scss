@@ -6,9 +6,17 @@
 	position: relative;
 	width: 100%;
 
+	&--mini {
+		max-width: 420px;
+	}
+
 	&__content {
 		margin-top: $colMargin;
 		@include fontRead($fontSizeBase, $lineHeightTextSum);
+
+		.singular--form & {
+			@include fontRead($fontSizeDefault);
+		}
 
 		p {
 			margin-bottom: $colMargin;

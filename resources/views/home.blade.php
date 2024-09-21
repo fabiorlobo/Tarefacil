@@ -19,7 +19,7 @@
 				</div>
 
 				<div class="screen__col screen__col--img">
-					<div class="screen__img">
+					<div class="screen__img box">
 						<img src="{{ asset('assets/images/screens/crie-gerencie-projetos.png') }}" alt="Crie e gerencie projetos">
 					</div>
 				</div>
@@ -31,7 +31,7 @@
 		<div class="wrapper">
 			<section class="main__section screen">
 				<div class="screen__col screen__col--img">
-					<div class="screen__img">
+					<div class="screen__img box">
 						<img src="{{ asset('assets/images/screens/crie-gerencie-projetos.png') }}" alt="Organize suas tarefas">
 					</div>
 				</div>
@@ -56,7 +56,7 @@
 				</div>
 
 				<div class="screen__col screen__col--img">
-					<div class="screen__img">
+					<div class="screen__img box">
 						<img src="{{ asset('assets/images/screens/controle-tempo.png') }}" alt="Controle seu tempo">
 					</div>
 				</div>
