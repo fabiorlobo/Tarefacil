@@ -1,3 +1,4 @@
+/******/ (() => { // webpackBootstrap
 document.addEventListener('DOMContentLoaded', function () {
 	function atualizarResumo() {
 			const listaId = document.querySelector('h1.title').getAttribute('data-lista-id');
@@ -43,3 +44,5 @@ document.addEventListener('DOMContentLoaded', function () {
 			el.addEventListener('click', atualizarResumo);
 	});
 });
+/******/ })()
+;

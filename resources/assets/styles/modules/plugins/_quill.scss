@@ -1,0 +1,87 @@
+.quill {
+	.ql-toolbar {
+		&.ql-snow {
+			background: var(--lt-color-bg-primary);
+			border-radius: 3px 3px 0 0;
+			border: 1px solid var(--lt-color-border-secondary);
+		}
+	}
+
+	.ql-container {
+		&.ql-snow {
+			border-radius: 0 0 3px 3px;
+			border: 1px solid var(--lt-color-border-secondary);
+			color: var(--lt-color-text-primary);
+			font-family: $fontText;
+			@include fontRead($fontSizeDefault, 8);
+
+			.ql-editor {
+				> :first-child {
+					margin-top: 0;
+				}
+			
+				> :last-child {
+					margin-bottom: 0;
+				}
+			}
+
+			p {
+				margin: $colMargin 0;
+			}
+
+			ol,
+			ul {
+				margin-bottom: $colMargin;
+				margin-top: $colMargin;
+			}
+
+			h1,
+			h2,
+			h3 {
+				margin: $colMargin 0;
+			}
+
+			h1 {
+				@include fontRead(24);
+			}
+			
+			h2 {
+				@include fontRead(20);
+			}
+			
+			h3 {
+				@include fontRead(16);
+			}
+		}
+	}
+}
+
+.quill-result {
+	@include fontRead($fontSizeDefault, 8);
+
+	h1,
+	h2,
+	h3 {
+		margin: $colMargin 0;
+	}
+
+	h1 {
+		@include fontRead(24);
+	}
+	
+	h2 {
+		@include fontRead(20);
+	}
+	
+	h3 {
+		@include fontRead(16);
+	}
+
+	> :first-child {
+		margin-top: 0;
+	}
+
+	> :last-child {
+		margin-bottom: 0;
+	}
+}

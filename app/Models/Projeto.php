@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Lista;
+use App\Models\Nota;
 
 class Projeto extends Model
 {
@@ -23,9 +25,9 @@ class Projeto extends Model
 	{
 		return $this->hasManyThrough(Tarefa::class, Lista::class)
 			->where('tarefas.status', false);
-	}	
+	}
 
-	public function anotacoes()
+	public function notas()
 	{
 		return $this->hasMany(Nota::class);
 	}

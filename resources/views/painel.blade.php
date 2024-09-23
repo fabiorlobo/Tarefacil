@@ -12,4 +12,5 @@
 
 	@include('includes.projetos')
 	@include('includes.listas', ['listas' => $listas])
+	@include('includes.notas', ['notas' => $notas])
 @endsection

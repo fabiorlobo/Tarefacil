@@ -21,6 +21,10 @@
 				<?php \App\Helpers\SvgHelper::render(['name' => 'more', 'class' => 'center']); ?>
 				<span class="actions__button__text">Nova lista</span>
 			</a>
+			<a class="actions__button" href="{{ route('notas.create', ['projeto_id' => $projeto->id]) }}">
+				<?php \App\Helpers\SvgHelper::render(['name' => 'more', 'class' => 'center']); ?>
+				<span class="actions__button__text">Nova anotação</span>
+			</a>
 		</div>
 	</header>
 
@@ -32,4 +36,5 @@
 	@endif
 
 	@include('includes.listas', ['listas' => $projeto->listas])
+	@include('includes.notas', ['notas' => $projeto->notas])
 @endsection

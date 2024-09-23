@@ -11,6 +11,7 @@ use App\Http\Controllers\ListaController;
 use App\Http\Controllers\TarefaController;
 use App\Http\Controllers\ProjetoController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\NotaController;
 
 // Rota para a home
 Route::get('/', function () {
@@ -51,6 +52,14 @@ Route::prefix('painel')->middleware('auth')->group(function () {
 	Route::put('usuarios/{id}', [UserController::class, 'update'])->name('usuarios.update');
 	Route::delete('usuarios/{id}', [UserController::class, 'destroy'])->name('usuarios.destroy');
 
+	// Notas
+	Route::get('notas', [NotaController::class, 'index'])->name('notas.index');
+	Route::get('notas/criar', [NotaController::class, 'create'])->name('notas.create');
+	Route::post('notas', [NotaController::class, 'store'])->name('notas.store');
+	Route::get('notas/{id}', [NotaController::class, 'show'])->name('notas.show');
+	Route::get('notas/{id}/editar', [NotaController::class, 'edit'])->name('notas.edit');
+	Route::put('notas/{id}', [NotaController::class, 'update'])->name('notas.update');
+	Route::delete('notas/{id}', [NotaController::class, 'destroy'])->name('notas.destroy');
 });
 
 // Listas

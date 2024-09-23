@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Projeto;
 use App\Models\Lista;
+use App\Models\Nota;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,8 +15,9 @@ class ProjetoController extends Controller
 		$userId = auth()->id();
 		$projetos = Projeto::where('user_id', $userId)->with(['listas.tarefas'])->get();
 		$listas = Lista::where('user_id', $userId)->with('tarefas')->get();
+		$notas = Nota::where('user_id', $userId)->get();
 
-		return view('painel', compact('projetos', 'listas'));
+		return view('painel', compact('projetos', 'listas', 'notas'));
 	}
 
 	public function index()
@@ -42,9 +44,9 @@ class ProjetoController extends Controller
 			return redirect()->back()->withErrors($validator)->withInput();
 		}
 
-    $projeto = Projeto::create(array_merge($request->all(), ['user_id' => auth()->id()]));
+		$projeto = Projeto::create(array_merge($request->all(), ['user_id' => auth()->id()]));
 
-    return redirect()->route('projetos.show', $projeto->id)->with('status', 'Projeto criado com sucesso!');
+		return redirect()->route('projetos.show', $projeto->id)->with('status', 'Projeto criado com sucesso!');
 	}
 
 	public function edit($id)
@@ -84,7 +86,12 @@ class ProjetoController extends Controller
 	public function show($id)
 	{
 		$userId = auth()->id();
-		$projeto = Projeto::where('id', $id)->where('user_id', $userId)->firstOrFail();
+		$projeto = Projeto::where('id', $id)
+			->where('user_id', $userId)
+			->with(['listas.tarefas', 'notas'])
+			->firstOrFail();
+
 		return view('painel.projetos.show', compact('projeto'));
 	}
+
 }

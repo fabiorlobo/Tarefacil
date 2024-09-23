@@ -6,9 +6,13 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
+
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="{{ asset('assets/styles/global.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/styles/dashboard.css') }}">
-	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+	@if (request()->is('*/notas/criar*') || request()->is('*/notas/*/editar*'))
+		<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+	@endif
 </head>
 
 <body class="template-dashboard">
@@ -42,9 +46,7 @@
 			@include('includes.menu-dashboard')
 
 			<footer role="contentinfo" class="footer footer--sidebar">
-
 				@include('includes.footer')
-
 			</footer>
 
 		</div>

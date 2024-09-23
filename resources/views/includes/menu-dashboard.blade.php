@@ -51,5 +51,20 @@
 				</li>
 			</ul>
 		</li>
+
+		<li class="main-menu__item main-menu__item--submenu{{ Route::is('notas.*') ? ' main-menu__item--submenu-active' : '' }}">
+			<a class="main-menu__item__link" href="/painel/notas">
+				<?php \App\Helpers\SvgHelper::render(['name' => 'notes', 'class' => 'center']); ?>
+				<span class="main-menu__item__text">Anotações</span>
+			</a>
+			<ul class="main-menu__submenu">
+				<li class="main-menu__submenu__item">
+					<a class="main-menu__submenu__item__link" href="{{ route('notas.create') }}">
+						<span class="main-menu__submenu__item__text">Nova anotação</span>
+						<?php \App\Helpers\SvgHelper::render(['name' => 'more', 'class' => 'center']); ?>
+					</a>
+				</li>
+			</ul>
+		</li>
 	</ul>
 </nav>
