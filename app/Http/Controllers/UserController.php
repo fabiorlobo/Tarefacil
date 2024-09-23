@@ -13,7 +13,7 @@ class UserController extends Controller
 	public function index()
 	{
 		$this->authorize('viewAny', User::class);
-		$users = User::with(['projetos', 'listas'])->get();
+		$users = User::with(['projetos', 'listas', 'notas'])->get();
 		return view('painel.usuarios.index', compact('users'));
 	}
 

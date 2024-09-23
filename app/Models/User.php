@@ -42,4 +42,9 @@ class User extends Authenticatable
 	{
 		return $this->hasMany(Lista::class);
 	}
+
+	public function notas()
+	{
+		return $this->hasMany(Nota::class);
+	}
 }
