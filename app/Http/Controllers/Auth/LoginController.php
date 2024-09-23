@@ -16,7 +16,7 @@ class LoginController extends Controller
 			return redirect()->route('painel');
 		}
 
-		return view('painel.entrar');
+		return view('entrar');
 	}
 
 	public function login(Request $request)

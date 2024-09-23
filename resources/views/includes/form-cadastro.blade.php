@@ -86,6 +86,7 @@
 	<form class="actions" method="POST" action="{{ route('usuarios.destroy', $user->id) }}"
 		onsubmit="return confirm('Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita.');">
 		@csrf
+		@method('DELETE')
 		<button class="actions__button actions__button--delete" type="submit">
 			<?php \App\Helpers\SvgHelper::render(['name' => 'close', 'class' => 'center']); ?>
 			<span class="actions__button__text">Excluir usuário</span>

@@ -22,8 +22,8 @@
 
 			<nav class="main-menu">
 				<ul class="main-menu__list">
-					<li class="main-menu__item"><a href="/painel/entrar">Login</a></li>
-					<li class="main-menu__item"><a class="button button--small" href="/painel/cadastro">Criar conta</a></li>
+					<li class="main-menu__item"><a href="/entrar">Login</a></li>
+					<li class="main-menu__item"><a class="button button--small" href="/cadastro">Criar conta</a></li>
 				</ul>
 			</nav>
 		</div>

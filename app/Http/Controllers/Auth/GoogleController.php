@@ -33,7 +33,7 @@ class GoogleController extends Controller
 					'name' => $googleUser->getName(),
 					'email' => $googleUser->getEmail(),
 					'google_id' => $googleUser->getId(),
-					'password' => Hash::make(str_random(24)),
+					'password' => Hash::make(\Illuminate\Support\Str::random(24)),
 					'avatar' => $googleUser->getAvatar(),
 				]);
 
@@ -42,7 +42,7 @@ class GoogleController extends Controller
 				return redirect()->intended('painel');
 			}
 		} catch (\Exception $e) {
-			return redirect()->route('painel.entrar');
+			return redirect()->route('entrar');
 		}
 	}
 }

@@ -17,7 +17,7 @@ class RegisterController extends Controller
 			return redirect()->route('painel');
 		}
 
-		return view('painel.cadastro');
+		return view('cadastro');
 	}
 
 	public function register(Request $request)
