@@ -18,9 +18,10 @@
 						@php
 							$listasCount = $projeto->listas->count();
 							$tarefasPendentes = $projeto->tarefasPendentes->count();
+							$notasCount = $projeto->notas->count();
 						@endphp
 
-						@if($listasCount > 0 || $tarefasPendentes > 0)
+						@if($listasCount > 0 || $tarefasPendentes > 0 || $notasCount > 0)
 							<div class="loop__item__info">
 								@if($listasCount > 0)
 									<span class="loop__item__info__data">
@@ -31,6 +32,12 @@
 								@if($tarefasPendentes > 0)
 									<span class="loop__item__info__data">
 										{{ $tarefasPendentes }} {{ $tarefasPendentes === 1 ? 'tarefa pendente' : 'tarefas pendentes' }}
+									</span>
+								@endif
+
+								@if($notasCount > 0)
+									<span class="loop__item__info__data">
+										{{ $notasCount }} {{ $notasCount === 1 ? 'nota' : 'notas' }}
 									</span>
 								@endif
 							</div>
