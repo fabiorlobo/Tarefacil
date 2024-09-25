@@ -18,8 +18,10 @@
 	}
 
 	.template-dashboard &--end.wrapper {
+		padding-top: 0;
+		
 		@include media($tablet, max) {
-			padding-bottom: 60px;
+			padding-bottom: calc(60px + #{$colMargin});
 		}
 
 		@include media($tablet, min) {

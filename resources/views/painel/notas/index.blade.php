@@ -17,7 +17,7 @@
 	@if (session('status'))
 		<div class="alert alert--success">
 			<?php \App\Helpers\SvgHelper::render(['name' => 'tasks', 'class' => 'center']); ?>
-			{{ session('status') }}
+			<span class="alert__text">{{ session('status') }}</span>
 		</div>
 	@endif
 
