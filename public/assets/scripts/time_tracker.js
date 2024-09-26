@@ -4,7 +4,6 @@ let isTracking = false;
 let currentTarefaId = null;
 
 function startTracker(tarefaId) {
-		console.log('startTracker chamado para tarefa', tarefaId);
 		if (!timers[tarefaId]) {
 				fetch(`/painel/tarefas/${tarefaId}/start`, {
 						method: 'POST',
@@ -28,7 +27,6 @@ function startTracker(tarefaId) {
 
 								const startBtn = document.querySelector(`#start-btn-${tarefaId}`);
 								const stopBtn = document.querySelector(`#stop-btn-${tarefaId}`);
-								console.log('Botões encontrados:', startBtn, stopBtn);
 								if (startBtn && stopBtn) {
 										startBtn.style.display = 'none';
 										stopBtn.style.display = 'flex';
@@ -41,7 +39,6 @@ function startTracker(tarefaId) {
 }
 
 function stopTracker(tarefaId, forceStop = false) {
-		console.log('stopTracker chamado para tarefa', tarefaId);
 		const timer = timers[tarefaId];
 		if (!timer) return;
 
@@ -66,6 +63,7 @@ function stopTracker(tarefaId, forceStop = false) {
 						isTracking = false;
 						window.onbeforeunload = null;
 						updateTaskUI(tarefaId, data.tempo_utilizado_horas, data.tempo_utilizado_minutos);
+						window.dispatchEvent(new CustomEvent('stop-tracker'));
 				} else if (data.status === 'already_stopped') {
 						alert('A tarefa já foi encerrada.');
 				}
@@ -179,6 +177,7 @@ function concluirTarefa(tarefaId) {
 	.then(data => {
 		if (data.status === 'success') {
 			alert('Tarefa atualizada com sucesso!');
+			window.dispatchEvent(new CustomEvent('concluir-tarefa'));
 		} else {
 			alert('Erro ao atualizar a tarefa.');
 		}
