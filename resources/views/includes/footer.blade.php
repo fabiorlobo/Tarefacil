@@ -1,15 +1,11 @@
 <ul class="footer__links">
 	<li>
-		<a href="/sobre" 
-			@if (Request::is('painel*')) target="_blank" @endif 
-			rel="noopener noreferrer">
+		<a href="/sobre" @if (Request::is('painel*')) target="_blank" rel="noopener noreferrer" @endif >
 			Sobre
 		</a>
 	</li>
 	<li>
-		<a href="/privacidade" 
-			@if (Request::is('painel*')) target="_blank" @endif 
-			rel="noopener noreferrer">
+		<a href="/privacidade" @if (Request::is('painel*')) target="_blank" rel="noopener noreferrer" @endif>
 			Privacidade
 		</a>
 	</li>

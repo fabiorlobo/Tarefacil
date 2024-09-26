@@ -21,6 +21,7 @@ class LoginController extends Controller
 
 	public function login(Request $request)
 	{
+		// Validação dos dados de entrada
 		$validator = Validator::make($request->all(), [
 			'email' => 'required|email',
 			'password' => 'required|string|min:8',
@@ -37,7 +38,9 @@ class LoginController extends Controller
 			$request->session()->regenerate();
 
 			if ($remember) {
-				Cookie::queue('remember_token', Cookie::get('tarefacil_session'), 43200 * 60);
+				config(['session.lifetime' => 43200]);
+			} else {
+				config(['session.lifetime' => 1440]);
 			}
 
 			return redirect()->intended('painel');

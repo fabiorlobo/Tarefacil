@@ -18,14 +18,14 @@
 				</div>
 			@endif
 
-			<form class="singular__content" class="form" method="POST" action="{{ route('login') }}">
+			<form class="singular__content form" method="POST" action="{{ route('login') }}">
 				<fieldset class="form__fields box">
 					@csrf
 					<div class="form__field form__field--1-1">
 						<label for="email">Email:</label>
 						<input type="email" id="email" name="email" required value="{{ old('email') }}">
 						@error('email')
-						<span class="alert alert--form">{{ $message }}</span>
+							<span class="alert alert--form">{{ $message }}</span>
 						@enderror
 					</div>
 
@@ -33,13 +33,20 @@
 						<label for="password">Senha:</label>
 						<input type="password" id="password" name="password" required>
 						@error('password')
-						<span class="alert alert--form">{{ $message }}</span>
+							<span class="alert alert--form">{{ $message }}</span>
 						@enderror
 					</div>
 
 					<div class="form__field form__field--1-1 form__field--checkbox">
 						<input type="checkbox" id="remember" name="remember">
 						<label for="remember">Lembrar-me</label>
+					</div>
+
+					<div class="form__field form__field--1-1">
+						<div class="cf-turnstile" data-sitekey="0x4AAAAAAAkviOdRtk7oKbKv"></div>
+						@error('cf-turnstile-response')
+							<span class="alert alert--form">{{ $message }}</span>
+						@enderror
 					</div>
 
 					<button class="form__button button button--max" type="submit">Entrar</button>
@@ -50,3 +57,7 @@
 		</div>
 	</section>
 @endsection
+
+@push('scripts')
+	<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+@endpush

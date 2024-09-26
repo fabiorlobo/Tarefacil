@@ -10,22 +10,31 @@
 </head>
 
 <body class="template-website">
+
 	<header class="header wrapper" role="banner">
 		<div class="header__bar max">
 			@if(Route::is('home'))
 				<h1>
 			@endif
-				<a class="header__logo" href="/"><?php \App\Helpers\SvgHelper::render(['name' => 'logo', 'type' => 'logo', 'class' => 'center']); ?></a>
-			@if(Route::is('home'))
-				</h1>
-			@endif
+				<a class="header__logo"
+					href="/"><?php \App\Helpers\SvgHelper::render(['name' => 'logo', 'type' => 'logo', 'class' => 'center']); ?></a>
+				@if(Route::is('home'))
+					</h1>
+				@endif
 
 			<nav class="main-menu">
 				<ul class="main-menu__list">
-					<li class="main-menu__item"><a href="/entrar">Login</a></li>
-					<li class="main-menu__item"><a class="button button--small" href="/cadastro">Criar conta</a></li>
+					@guest
+						<li class="main-menu__item"><a href="/entrar">Login</a></li>
+						<li class="main-menu__item"><a class="button button--small" href="/cadastro">Criar conta</a></li>
+					@endguest
+					@auth
+						<li class="main-menu__item"><a href="/painel">Painel</a></li>
+						<li class="main-menu__item"><a class="button button--small" href="/painel/conta">Minha conta</a></li>
+					@endauth
 				</ul>
 			</nav>
+
 		</div>
 	</header>
 
@@ -38,6 +47,9 @@
 			@include('includes.footer')
 		</div>
 	</footer>
+
+	@stack('scripts')
+
 </body>
 
 </html>

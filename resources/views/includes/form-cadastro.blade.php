@@ -52,8 +52,17 @@
 		@if ($isCreate)
 			<div class="form__field form__field--1-1 form__field--checkbox">
 				<input type="checkbox" id="terms" name="terms" required>
-				<label for="terms">Concordo com os termos de serviço e política de privacidade</label>
+				<label for="terms">Concordo com a <a href="/privacidade" target="_blank" rel="noopener noreferrer">política de privacidade</a></label>
 				@error('terms')
+					<span class="alert alert--form">{{ $message }}</span>
+				@enderror
+			</div>
+		@endif
+
+		@if($isCreate)
+			<div class="form__field form__field--1-1">
+				<div class="cf-turnstile" data-sitekey="0x4AAAAAAAkviOdRtk7oKbKv"></div>
+				@error('cf-turnstile-response')
 					<span class="alert alert--form">{{ $message }}</span>
 				@enderror
 			</div>

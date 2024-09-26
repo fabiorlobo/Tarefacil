@@ -115,3 +115,10 @@ textarea {
 [hidden] {
 	display: none;
 }
+
+.cf-turnstile {
+	div {
+		display: flex;
+		justify-content: center;
+	}
+}
