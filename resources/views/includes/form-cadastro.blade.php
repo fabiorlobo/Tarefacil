@@ -61,7 +61,7 @@
 
 		@if($isCreate)
 			<div class="form__field form__field--1-1">
-				<div class="cf-turnstile" data-sitekey="0x4AAAAAAAkviOdRtk7oKbKv"></div>
+				<div class="cf-turnstile" data-sitekey="0x4AAAAAAAkviOdRtk7oKbKv"data-size="flexible"></div>
 				@error('cf-turnstile-response')
 					<span class="alert alert--form">{{ $message }}</span>
 				@enderror
